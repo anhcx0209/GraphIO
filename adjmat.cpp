@@ -30,3 +30,36 @@ QVariant AdjMat::data(const QModelIndex &index, int role) const
 
     return QVariant();
 }
+
+bool AdjMat::setData(const QModelIndex & index, const QVariant & value, int role)
+{
+    qDebug() << "set data " << value.toInt();
+    if (role == Qt::EditRole) {
+        CoreVertex *a = graph_->vertexs().at(index.row());
+        CoreVertex *b = graph_->vertexs().at(index.column());
+        if (a == b) {
+            return false;
+        }
+
+        if (value.toInt() == 0) {
+            if (graph_->hasEdge(a, b)) {
+                CoreEdge *e = graph_->edgeBetween(a, b);
+                graph_->removeEdge(e);
+            }
+        }
+
+        if (value.toInt() == 1) {
+            if (!graph_->hasEdge(a, b)) {                
+                graph_->createEdge(a, b);
+            }
+        }
+    }
+    emit dataChanged(index, index);
+    return true;
+}
+
+Qt::ItemFlags AdjMat::flags(const QModelIndex & /*index*/) const
+{
+    return Qt::ItemIsSelectable |  Qt::ItemIsEditable | Qt::ItemIsEnabled ;
+}
+

@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     edglist.cpp \
     incmat.cpp \
     structadj.cpp \
-    wmat.cpp
+    wmat.cpp \
+    enterdialog.cpp
 
 HEADERS  += mainwindow.h \
     coreedge.h \
@@ -48,4 +49,5 @@ HEADERS  += mainwindow.h \
     edglist.h \
     incmat.h \
     structadj.h \
-    wmat.h
+    wmat.h \
+    enterdialog.h

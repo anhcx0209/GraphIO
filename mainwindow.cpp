@@ -57,7 +57,8 @@ void MainWindow::createMenu()
 
 void MainWindow::newGraph()
 {
-    qDebug() << "new graph...";
+    EnterDialog dialog;
+    dialog.exec();
 }
 
 void MainWindow::openGraph()

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "graphscene.h"
+#include "enterdialog.h"
 
 #include <QMainWindow>
 #include <QDebug>

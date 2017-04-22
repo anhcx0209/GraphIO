@@ -24,6 +24,7 @@ public:
     CoreEdge *edgeBetween(CoreVertex *a, CoreVertex *b) const;
 
     int size() const {return list_vertexs_.size();}
+    void clear();
 
     QList<CoreVertex *> vertexs() const {return list_vertexs_;}
     QList<CoreEdge *> edges() const {return list_edges_;}

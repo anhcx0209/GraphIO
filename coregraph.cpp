@@ -132,3 +132,9 @@ void CoreGraph::saveStructAdj(QString filename)
         }
     }
 }
+
+void CoreGraph::clear()
+{
+    list_vertexs_.clear();
+    list_edges_.clear();
+}
