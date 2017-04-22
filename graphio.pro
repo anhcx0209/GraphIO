@@ -24,6 +24,28 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    coregraph.cpp \
+    corevertex.cpp \
+    grapharrowextend.cpp \
+    graphpoint.cpp \
+    graphscene.cpp \
+    adjmat.cpp \
+    coreedge.cpp \
+    edglist.cpp \
+    incmat.cpp \
+    structadj.cpp \
+    wmat.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    coreedge.h \
+    coregraph.h \
+    corevertex.h \
+    grapharrowextend.h \
+    graphpoint.h \
+    graphscene.h \
+    adjmat.h \
+    edglist.h \
+    incmat.h \
+    structadj.h \
+    wmat.h

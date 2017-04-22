@@ -3,8 +3,10 @@
 
 int main(int argc, char *argv[])
 {
+    // Init resource here
     QApplication a(argc, argv);
     MainWindow w;
+    w.setGeometry(100, 100, 800, 500);
     w.show();
 
     return a.exec();
