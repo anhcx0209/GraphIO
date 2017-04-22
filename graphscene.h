@@ -6,6 +6,7 @@
 #include "coregraph.h"
 #include "graphpoint.h"
 #include "grapharrowextend.h"
+#include "grapharrow.h"
 
 class GraphScene : public QGraphicsScene
 {
@@ -21,14 +22,13 @@ public:
     void saveTo(QString filename);
     void readFrom(QString filename);
 signals:
-    void itemInserted(GraphPoint *item);
-    void arrowInserted(GraphArrowExtend *arrow);
     void itemSelected(QGraphicsItem *);
-protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent);
 
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
+    void keyPressEvent(QKeyEvent *event) override;
 private:
     CoreGraph *graph_;
     int def_name_;

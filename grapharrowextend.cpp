@@ -8,7 +8,7 @@ const qreal D_ANGLE = 5;
 
 GraphArrowExtend::GraphArrowExtend(GraphPoint *start, GraphPoint *end, QGraphicsItem *parent)
     :QGraphicsPathItem(parent)
-{
+{    
     start_item_ = start;
     end_item_ = end;
     pos_to_insert_ = 0;
@@ -21,10 +21,12 @@ GraphArrowExtend::GraphArrowExtend(GraphPoint *start, GraphPoint *end, QGraphics
     list_point_.append(p1);
     list_point_.append(p2);
 
-    w_text_ = new QGraphicsSimpleTextItem("new");
-    w_text_->setPos((p1 + p2) / 2);
+    QPainterPath initpath(p1);
+    initpath.lineTo(p2);
+    setPath(initpath);
 
     setFlag(QGraphicsItem::ItemIsSelectable, true);
+    setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
 }
 
 void GraphArrowExtend::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -132,7 +134,7 @@ void GraphArrowExtend::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     QPointF p2 = list_point_.at(list_point_.size() - 2);
 
     QLineF arrowLine(p1, p2);
-    qreal arrowSize = 20;
+    qreal arrowSize = 12;
     double angle = ::acos(arrowLine.dx() / arrowLine.length());
 
     if (arrowLine.dy() >= 0)
@@ -147,6 +149,8 @@ void GraphArrowExtend::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     arrow_head_.clear();
     arrow_head_ << arrowLine.p1() << arrowP1 << arrowP2;
 
+
+
     linePath.addPolygon(arrow_head_);
     linePath.closeSubpath();
     QPointF baseline = QPointF((list_point_.first().x() + list_point_.at(1).x()) / 2,
@@ -158,8 +162,16 @@ void GraphArrowExtend::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     setPath(linePath);
     painter->drawPath(path());
 
+    painter->setBrush(QBrush(Qt::black));
+    painter->drawPolygon(arrow_head_);
+
     for (int i = 1; i < list_point_.size()-1; i++) {
         painter->setBrush(Qt::SolidPattern);
         painter->drawEllipse(list_point_[i], 2, 2);
     }
+}
+
+QRectF GraphArrowExtend::boundingRect() const
+{
+    return path().boundingRect();
 }

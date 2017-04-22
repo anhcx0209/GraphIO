@@ -29,23 +29,22 @@ private:
     CoreEdge *edge_;
 
     // Override functions
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-    QGraphicsSimpleTextItem *w_text_;
-public:
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    QRectF boundingRect() const override;
+public:    
     GraphArrowExtend(GraphPoint *start, GraphPoint *end, QGraphicsItem *parrent = 0);
     GraphPoint *startItem() { return start_item_; }
     GraphPoint *endItem() { return end_item_; }
 
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
 
     CoreEdge *edge() {return edge_;}
     void setEdge(CoreEdge *e) {edge_ = e;}
 
     enum { Type = UserType + 4 };
-    int type() const { return Type; }
-
+    int type() const override { return Type; }
 };
 
 #endif // GRAPHARROWEXTEND_H

@@ -17,7 +17,7 @@ public:
     GraphPoint(QGraphicsItem *parent = 0);
 
     enum {Type = UserType + 15};
-    int type() const { return Type; }
+    int type() const override { return Type; }
 
     void removeArrowsExtend();
     void addArrowExtend(GraphArrowExtend *arrow);
@@ -25,9 +25,9 @@ public:
 
     CoreVertex *vertex() {return vertex_;}
     void setVertex(CoreVertex *v) {vertex_ = v;}
-protected:    
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+protected:
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 private:    
     QList<GraphArrowExtend *> arrows_extend_;
     CoreVertex *vertex_;

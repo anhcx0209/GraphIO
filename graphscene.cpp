@@ -13,8 +13,7 @@ GraphScene::GraphScene(QObject *parent)
 }
 
 void GraphScene::setMode(Mode mode)
-{
-    qDebug() << "change mode to: " << mode;
+{    
     mode_ = mode;
 }
 
@@ -110,6 +109,21 @@ void GraphScene::saveTo(QString filename)
     }
 }
 
+void GraphScene::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Backspace) {
+        foreach (QGraphicsItem *item, selectedItems()) {
+            if (item->type() == GraphPoint::Type) {
+                graph_->removeVertex(qgraphicsitem_cast<GraphPoint *>(item)->vertex());
+                qgraphicsitem_cast<GraphPoint *>(item)->removeArrowsExtend();
+            } else {
+                graph_->removeEdge(qgraphicsitem_cast<GraphArrowExtend *>(item)->edge());
+            }
+            removeItem(item);
+        }
+    }
+}
+
 void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {    
     if (mouseEvent->button() != Qt::LeftButton || graph_ == 0)
@@ -132,7 +146,8 @@ void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         def_name_++;
         graph_->addVertex(v);
         point->setVertex(v);
-        emit itemInserted(point);
+
+        qDebug() << point->pos();
         break;
     default:
         break;
@@ -173,20 +188,23 @@ void GraphScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 startItems.first() != endItems.first())
         {
             GraphPoint *startPoint = qgraphicsitem_cast<GraphPoint *>(startItems.first());
-            GraphPoint *endPoint = qgraphicsitem_cast<GraphPoint *>(endItems.first());
+            GraphPoint *endPoint = qgraphicsitem_cast<GraphPoint *>(endItems.first());            
 
             GraphArrowExtend *arrow = new GraphArrowExtend(startPoint, endPoint);
-            startPoint->addArrowExtend(arrow);            
+            startPoint->addArrowExtend(arrow);
             endPoint->addArrowExtend(arrow);
             arrow->setZValue(-1000.0);
-            addItem(arrow);
-
             CoreEdge *e = graph_->createEdge(startPoint->vertex(), endPoint->vertex());
             arrow->setEdge(e);
-
+            addItem(arrow);
             arrow->updatePosition();
 
-            emit arrowInserted(arrow);
+//            GraphArrow *arrow = new GraphArrow(startPoint, endPoint);
+//            arrow->setZValue(-1000.0);
+//            addItem(arrow);
+
+//            QGraphicsLineItem *test = new QGraphicsLineItem(QLineF(startPoint->scenePos(), endPoint->scenePos()));
+//            addItem(test);
         }
 
     }

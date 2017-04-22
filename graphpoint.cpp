@@ -34,9 +34,8 @@ void GraphPoint::removeArrowsExtend()
     }
 }
 
-
 QVariant GraphPoint::itemChange(GraphicsItemChange change, const QVariant &value)
-{
+{    
     if (change == QGraphicsItem::ItemPositionChange) {
         foreach (GraphArrowExtend *arrow, arrows_extend_) {
             arrow->updatePosition();
