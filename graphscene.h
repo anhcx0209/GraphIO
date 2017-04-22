@@ -13,7 +13,7 @@ class GraphScene : public QGraphicsScene
 
 public:
     enum Mode { InsertItem, MoveItem, InsertLine };
-    GraphScene(QMenu *menu, QObject *parent = 0);
+    GraphScene(QObject *parent = 0);
     void setMode(Mode mode);
 
     CoreGraph *graph() {return graph_;}
@@ -32,8 +32,7 @@ protected:
 private:
     CoreGraph *graph_;
     int def_name_;
-    Mode mode_;
-    QMenu *item_menu_;
+    Mode mode_;    
     QGraphicsLineItem *line_;
 };
 

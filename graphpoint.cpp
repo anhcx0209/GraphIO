@@ -2,25 +2,16 @@
 
 #include "graphpoint.h"
 
-GraphPoint::GraphPoint(QMenu *contextMenu, QGraphicsItem *parent)
+GraphPoint::GraphPoint(QGraphicsItem *parent)
     :QGraphicsEllipseItem(parent)
 {
-    setRect(QRectF(0, 0, 50, 50));
-    context_menu_ = contextMenu;
+    setRect(QRectF(0, 0, 50, 50));    
     arrows_extend_.clear();    
 
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
 }
-
-void GraphPoint::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
-{
-    scene()->clearSelection();
-    setSelected(true);
-    context_menu_->exec(event->screenPos());
-}
-
 
 void GraphPoint::addArrowExtend(GraphArrowExtend *arrow)
 {

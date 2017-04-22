@@ -51,3 +51,6 @@ HEADERS  += mainwindow.h \
     structadj.h \
     wmat.h \
     enterdialog.h
+
+RESOURCES += \
+    graphio.qrc

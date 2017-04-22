@@ -14,7 +14,7 @@ class GraphArrowExtend;
 class GraphPoint : public QGraphicsEllipseItem
 {
 public:
-    GraphPoint(QMenu *contextMenu, QGraphicsItem *parent = 0);
+    GraphPoint(QGraphicsItem *parent = 0);
 
     enum {Type = UserType + 15};
     int type() const { return Type; }
@@ -25,12 +25,10 @@ public:
 
     CoreVertex *vertex() {return vertex_;}
     void setVertex(CoreVertex *v) {vertex_ = v;}
-protected:
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+protected:    
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-private:
-    QMenu *context_menu_;
+private:    
     QList<GraphArrowExtend *> arrows_extend_;
     CoreVertex *vertex_;
 };

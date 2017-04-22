@@ -20,11 +20,28 @@ private slots:
     void openGraph();
     void saveGraph();
     void about();
+
+    void changePage(int);
+    void visualGraphGroupClicked(int);
 private:
 
     void createActions();
     void createMenu();
-//    void createToolbars();
+    void createToolbars();
+    void setupPageWidget();
+
+    CoreGraph *graph_;
+
+    GraphScene *scene_;
+    QGraphicsView *view_;
+    AdjMat *adj_mat_;
+    QTableView *adjmat_view_;
+    QTableView *edglist_view_;
+    QTableView *incmat_view_;
+    QTableView *structadj_view_;
+    QTableView *wmat_view_;
+
+    QStackedWidget *pages_widget_;
 
     QMenu *file_menu_;
     QMenu *view_menu_;
@@ -38,6 +55,12 @@ private:
     QAction *about_action_;
     QAction *help_action_;
 
+    QToolBar *graph_toolbar_;
+    QToolBar *view_toolbar_;
+
+    QComboBox *view_combobox_;
+
+    QButtonGroup *visual_graph_group_;
 };
 
 #endif // MAINWINDOW_H

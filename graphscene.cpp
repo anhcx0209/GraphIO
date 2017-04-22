@@ -3,11 +3,10 @@
 
 #include "graphscene.h"
 
-GraphScene::GraphScene(QMenu *menu, QObject *parent)
+GraphScene::GraphScene(QObject *parent)
     :QGraphicsScene(parent)
 {
     mode_ = MoveItem;
-    item_menu_ = menu;
     line_ = 0;
     def_name_ = 1;
     graph_ = 0;
@@ -15,6 +14,7 @@ GraphScene::GraphScene(QMenu *menu, QObject *parent)
 
 void GraphScene::setMode(Mode mode)
 {
+    qDebug() << "change mode to: " << mode;
     mode_ = mode;
 }
 
@@ -39,7 +39,7 @@ void GraphScene::readFrom(QString filename)
         in >> n;
         for (int i = 0; i < n; i++) {
             in >> pid >> px >> py;
-            point = new GraphPoint(item_menu_);
+            point = new GraphPoint();
             point->setPos(QPointF(px, py));
 
             v = new CoreVertex(QString::number(pid));
@@ -111,7 +111,7 @@ void GraphScene::saveTo(QString filename)
 }
 
 void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
-{
+{    
     if (mouseEvent->button() != Qt::LeftButton || graph_ == 0)
         return ;
 
@@ -125,7 +125,7 @@ void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         addItem(line_);
         break;
     case InsertItem:
-        point = new GraphPoint(item_menu_);
+        point = new GraphPoint();
         addItem(point);
         point->setPos(mouseEvent->scenePos());
         v = new CoreVertex(QString::number(def_name_));
