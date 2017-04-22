@@ -15,7 +15,7 @@ CoreEdge *CoreGraph::createEdge(CoreVertex *a, CoreVertex *b)
     if (i1 != -1 && i2 != -1) {
         e = new CoreEdge(a, b);
         list_edges_.append(e);
-    }
+    }    
 
     return e;
 }
@@ -23,6 +23,7 @@ CoreEdge *CoreGraph::createEdge(CoreVertex *a, CoreVertex *b)
 void CoreGraph::addVertex(CoreVertex *new_vertex)
 {
     list_vertexs_.append(new_vertex);
+    emit changed();
 }
 
 void CoreGraph::removeVertex(CoreVertex *v)

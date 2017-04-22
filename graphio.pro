@@ -36,8 +36,7 @@ SOURCES += main.cpp\
     incmat.cpp \
     structadj.cpp \
     wmat.cpp \
-    enterdialog.cpp \
-    grapharrow.cpp
+    enterdialog.cpp
 
 HEADERS  += mainwindow.h \
     coreedge.h \
@@ -51,8 +50,7 @@ HEADERS  += mainwindow.h \
     incmat.h \
     structadj.h \
     wmat.h \
-    enterdialog.h \
-    grapharrow.h
+    enterdialog.h
 
 RESOURCES += \
     graphio.qrc

@@ -21,15 +21,14 @@ QVariant StructAdj::data(const QModelIndex &index, int role) const
         if (index.column() == 0) {
             return graph_->vertexs().at(index.row())->id();
         } else {
-            QString ret("");
+            QStringList ret;
             CoreVertex *v = graph_->vertexs().at(index.row());
             for (int i = 0; i < graph_->edges().size(); i++) {
                 if (graph_->edges().at(i)->getBegin() == v) {
-                    ret += graph_->edges().at(i)->getEnd()->id();
-                    ret += ", ";
+                    ret << graph_->edges().at(i)->getEnd()->id();
                 }
             }
-            return ret;
+            return ret.join(", ");
         }
     }
 

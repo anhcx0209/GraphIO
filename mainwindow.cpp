@@ -45,6 +45,9 @@ void MainWindow::createActions()
 
     help_action_ = new QAction(tr("Help"), this);
     //connect(exit_action_, SIGNAL(triggered()), this, SLOT(close()));
+
+    delete_action_ = new QAction(QIcon(":/icons/delete.png"), tr("Delete"), this);
+    delete_action_->setShortcut(tr("Delete"));
 }
 
 void MainWindow::createMenu()
@@ -88,12 +91,7 @@ void MainWindow::createToolbars()
     QToolButton *lineButton = new QToolButton;
     lineButton->setCheckable(true);
     lineButton->setChecked(false);
-    lineButton->setIcon(QIcon(":/icons/linepointer.png"));
-
-    QToolButton *deleteButton = new QToolButton;
-    deleteButton->setCheckable(true);
-    deleteButton->setChecked(false);
-    deleteButton->setIcon(QIcon(":/icons/delete.png"));
+    lineButton->setIcon(QIcon(":/icons/linepointer.png"));    
 
     visual_graph_group_ = new QButtonGroup(this);
     visual_graph_group_->addButton(pointButton, int(GraphScene::InsertItem));
@@ -107,7 +105,7 @@ void MainWindow::createToolbars()
     graph_toolbar_->addWidget(pointButton);
     graph_toolbar_->addWidget(pointerButton);
     graph_toolbar_->addWidget(lineButton);
-    graph_toolbar_->addWidget(deleteButton);
+    graph_toolbar_->addAction(delete_action_);
 }
 
 void MainWindow::setupPageWidget()
@@ -118,23 +116,41 @@ void MainWindow::setupPageWidget()
     scene_->setSceneRect(QRectF(0, 0, 5000, 5000));
     view_ = new QGraphicsView(scene_);
     scene_->setGraph(graph_);
+    // Connect to delete action
+    connect(delete_action_, SIGNAL(triggered()), scene_, SLOT(deleteItem()));
+
     // Adjacency matrix
-    adj_mat_ = new AdjMat(graph_);
     adjmat_view_ = new QTableView;
-    adjmat_view_->setModel(adj_mat_);
+    adjmat_view_->setModel(new AdjMat(graph_));
+    // List of edges
+    edglist_view_ = new QTableView;
+    edglist_view_->setModel(new EdgList(graph_));
+    // IN
+    incmat_view_ = new QTableView;
+    incmat_view_->setModel(new IncMat(graph_));
+    // struct adj
+    structadj_view_ = new QTableView;
+    structadj_view_->setModel(new StructAdj(graph_));
+    // w mat
+    wmat_view_ = new QTableView;
+    wmat_view_->setModel(new WMat(graph_));
 
     pages_widget_ = new QStackedWidget;
     pages_widget_->addWidget(view_);
     pages_widget_->addWidget(adjmat_view_);
-//    QTableView *adjmat_view_;
-//    QTableView *edglist_view_;
-//    QTableView *incmat_view_;
-//    QTableView *structadj_view_;
-//    QTableView *wmat_view_;
+    pages_widget_->addWidget(incmat_view_);
+    pages_widget_->addWidget(wmat_view_);
+    pages_widget_->addWidget(edglist_view_);
+    pages_widget_->addWidget(structadj_view_);
 }
 
 void MainWindow::changePage(int i)
 {
+    adjmat_view_->setModel(new AdjMat(graph_));
+    edglist_view_->setModel(new EdgList(graph_));
+    incmat_view_->setModel(new IncMat(graph_));
+    structadj_view_->setModel(new StructAdj(graph_));
+    wmat_view_->setModel(new WMat(graph_));
     pages_widget_->setCurrentIndex(i);
 }
 

@@ -9,7 +9,7 @@
 
 class AdjMat : public QAbstractTableModel
 {
-    Q_OBJECT
+    Q_OBJECT    
 public:
     AdjMat(CoreGraph *g, QObject *parent=0);
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -20,7 +20,7 @@ public:
     CoreGraph *graph() const {return graph_;}
     void setGraph(CoreGraph *g) { graph_ = g; }
 
-    void save(QString filename);
+    void save(QString filename);    
 private:
     CoreGraph *graph_;
 };

@@ -2,7 +2,7 @@
 
 AdjMat::AdjMat(CoreGraph *g, QObject *parent) : QAbstractTableModel(parent)
 {
-    graph_ = g;
+    graph_ = g;    
 }
 
 int AdjMat::rowCount(const QModelIndex &/*parent*/) const
@@ -62,4 +62,3 @@ Qt::ItemFlags AdjMat::flags(const QModelIndex & /*index*/) const
 {
     return Qt::ItemIsSelectable |  Qt::ItemIsEditable | Qt::ItemIsEnabled ;
 }
-

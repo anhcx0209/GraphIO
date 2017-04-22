@@ -1,6 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "edglist.h"
+#include "incmat.h"
+#include "structadj.h"
+#include "wmat.h"
 #include "graphscene.h"
 #include "enterdialog.h"
 
@@ -34,7 +38,7 @@ private:
 
     GraphScene *scene_;
     QGraphicsView *view_;
-    AdjMat *adj_mat_;
+
     QTableView *adjmat_view_;
     QTableView *edglist_view_;
     QTableView *incmat_view_;
@@ -51,6 +55,7 @@ private:
     QAction *open_action_;
     QAction *save_action_;
     QAction *exit_action_;
+    QAction *delete_action_;
 
     QAction *about_action_;
     QAction *help_action_;

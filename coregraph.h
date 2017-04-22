@@ -7,11 +7,16 @@
 #include <QFile>
 #include <QTextStream>
 
-class CoreGraph
+class CoreGraph : public QObject
 {
+    Q_OBJECT
+
 private:
     QList<CoreVertex *> list_vertexs_;
     QList<CoreEdge *> list_edges_;
+signals:
+    void changed();
+
 public:
     CoreGraph();
 

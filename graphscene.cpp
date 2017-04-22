@@ -75,6 +75,19 @@ void GraphScene::readFrom(QString filename)
     fi.close();
 }
 
+void GraphScene::deleteItem()
+{
+    foreach (QGraphicsItem *item, selectedItems()) {
+        if (item->type() == GraphPoint::Type) {
+            graph_->removeVertex(qgraphicsitem_cast<GraphPoint *>(item)->vertex());
+            qgraphicsitem_cast<GraphPoint *>(item)->removeArrowsExtend();
+        } else {
+            graph_->removeEdge(qgraphicsitem_cast<GraphArrowExtend *>(item)->edge());
+        }
+        removeItem(item);
+    }
+}
+
 void GraphScene::saveTo(QString filename)
 {
     QFile fi(filename);
@@ -109,21 +122,6 @@ void GraphScene::saveTo(QString filename)
     }
 }
 
-void GraphScene::keyPressEvent(QKeyEvent *event)
-{
-    if (event->key() == Qt::Key_Backspace) {
-        foreach (QGraphicsItem *item, selectedItems()) {
-            if (item->type() == GraphPoint::Type) {
-                graph_->removeVertex(qgraphicsitem_cast<GraphPoint *>(item)->vertex());
-                qgraphicsitem_cast<GraphPoint *>(item)->removeArrowsExtend();
-            } else {
-                graph_->removeEdge(qgraphicsitem_cast<GraphArrowExtend *>(item)->edge());
-            }
-            removeItem(item);
-        }
-    }
-}
-
 void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {    
     if (mouseEvent->button() != Qt::LeftButton || graph_ == 0)
@@ -145,9 +143,7 @@ void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         v = new CoreVertex(QString::number(def_name_));
         def_name_++;
         graph_->addVertex(v);
-        point->setVertex(v);
-
-        qDebug() << point->pos();
+        point->setVertex(v);        
         break;
     default:
         break;
@@ -198,13 +194,6 @@ void GraphScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             arrow->setEdge(e);
             addItem(arrow);
             arrow->updatePosition();
-
-//            GraphArrow *arrow = new GraphArrow(startPoint, endPoint);
-//            arrow->setZValue(-1000.0);
-//            addItem(arrow);
-
-//            QGraphicsLineItem *test = new QGraphicsLineItem(QLineF(startPoint->scenePos(), endPoint->scenePos()));
-//            addItem(test);
         }
 
     }
