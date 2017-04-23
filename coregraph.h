@@ -26,6 +26,7 @@ public:
 
     bool hasEdge(CoreVertex *a, CoreVertex *b) const;
     CoreEdge *edgeBetween(CoreVertex *a, CoreVertex *b) const;
+    CoreVertex* findVertex(QString id);
 
     int size() const {return list_vertexs_.size();}
     void clear();

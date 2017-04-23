@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     enterdialog.cpp \
     newadjmat.cpp \
     newincmat.cpp \
-    newwmat.cpp
+    newwmat.cpp \
+    newedglist.cpp
 
 HEADERS  += mainwindow.h \
     coreedge.h \
@@ -56,7 +57,8 @@ HEADERS  += mainwindow.h \
     enterdialog.h \
     newadjmat.h \
     newincmat.h \
-    newwmat.h
+    newwmat.h \
+    newedglist.h
 
 RESOURCES += \
     graphio.qrc

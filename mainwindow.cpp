@@ -34,6 +34,8 @@ void MainWindow::createActions()
     connect(new_wmat_action_, SIGNAL(triggered()), this, SLOT(startNewWMat()));
 
     new_edglist_action_ = new QAction(tr("С списки ребер..."));
+    connect(new_edglist_action_, SIGNAL(triggered()), this, SLOT(startNewEdgList()));
+
     new_structadj_action_ = new QAction(tr("С структуры смежности..."));
 
 
@@ -207,6 +209,13 @@ void MainWindow::startNewIncMat()
 void MainWindow::startNewWMat()
 {
     NewWMat *dialog = new NewWMat("Матрица весов графа");
+    connect(dialog, SIGNAL(finishEnterData(CoreGraph*)), this, SLOT(gotGraphFromDialog(CoreGraph*)));
+    dialog->exec();
+}
+
+void MainWindow::startNewEdgList()
+{
+    NewEdgList *dialog = new NewEdgList();
     connect(dialog, SIGNAL(finishEnterData(CoreGraph*)), this, SLOT(gotGraphFromDialog(CoreGraph*)));
     dialog->exec();
 }

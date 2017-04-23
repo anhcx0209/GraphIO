@@ -9,6 +9,7 @@
 #include "newadjmat.h"
 #include "newincmat.h"
 #include "newwmat.h"
+#include "newedglist.h"
 
 #include <QMainWindow>
 #include <QDebug>
@@ -26,6 +27,7 @@ private slots:
     void startNewAdjMat();
     void startNewIncMat();
     void startNewWMat();
+    void startNewEdgList();
     void openGraph();
     void saveGraph();
     void about();

@@ -76,6 +76,16 @@ CoreEdge *CoreGraph::edgeBetween(CoreVertex *a, CoreVertex *b) const
     return 0;
 }
 
+CoreVertex *CoreGraph::findVertex(QString id)
+{    
+    foreach (CoreVertex *v, list_vertexs_) {
+        if (v->id() == id) {
+            return v;
+        }
+    }
+    return 0;
+}
+
 void CoreGraph::saveAdjMat(QString filename)
 {
     QFile f(filename);
