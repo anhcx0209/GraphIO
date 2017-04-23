@@ -20,7 +20,8 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 private slots:
-    void newGraph();
+    void start();
+    void startNewAdjMat();
     void openGraph();
     void saveGraph();
     void about();
@@ -52,8 +53,16 @@ private:
     QMenu *file_menu_;
     QMenu *view_menu_;
     QMenu *help_menu_;
+    QMenu *new_menu_;
 
     QAction *new_action_;
+    QAction *new_visual_action_;
+    QAction *new_adjmat_action_;
+    QAction *new_incmat_action_;
+    QAction *new_wmat_action_;
+    QAction *new_edglist_action_;
+    QAction *new_structadj_action_;
+
     QAction *open_action_;
     QAction *save_action_;
     QAction *exit_action_;

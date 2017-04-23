@@ -32,8 +32,7 @@ QVariant AdjMat::data(const QModelIndex &index, int role) const
 }
 
 bool AdjMat::setData(const QModelIndex & index, const QVariant & value, int role)
-{
-    qDebug() << "set data " << value.toInt();
+{    
     if (role == Qt::EditRole) {
         CoreVertex *a = graph_->vertexs().at(index.row());
         CoreVertex *b = graph_->vertexs().at(index.column());

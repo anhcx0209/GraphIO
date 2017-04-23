@@ -6,13 +6,8 @@ MainWindow::MainWindow(QWidget *parent)
     createActions();
     createMenu();
     createToolbars();
-    setupPageWidget();
 
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->addWidget(pages_widget_);
-
-    QWidget *widget = new QWidget;
-    widget->setLayout(layout);
+    QWidget *widget = new QWidget;    
     setCentralWidget(widget);
     setWindowTitle(tr("GraphIO"));
     setUnifiedTitleAndToolBarOnMac(true);
@@ -25,25 +20,34 @@ MainWindow::~MainWindow()
 
 void MainWindow::createActions()
 {
-    new_action_ = new QAction(tr("New"), this);
-    new_action_->setShortcut(tr("Ctrl+N"));
-    connect(new_action_, SIGNAL(triggered()), this, SLOT(newGraph()));
+    new_visual_action_ = new QAction(tr("С экрана..."));
+    new_visual_action_->setShortcut(tr("Ctrl+N"));
+    connect(new_visual_action_, SIGNAL(triggered()), this, SLOT(start()));
 
-    open_action_ = new QAction(tr("Open"), this);
+    new_adjmat_action_ = new QAction(tr("С матрицы смежности..."));
+    connect(new_adjmat_action_, SIGNAL(triggered()), this, SLOT(startNewAdjMat()));
+
+    new_incmat_action_ = new QAction(tr("С матрицы инцидентности..."));
+    new_wmat_action_ = new QAction(tr("С матрицы весов..."));
+    new_edglist_action_ = new QAction(tr("С списки ребер..."));;
+    new_structadj_action_ = new QAction(tr("С структуры смежности..."));;;
+
+
+    open_action_ = new QAction(tr("Октрыть..."), this);
     open_action_->setShortcut(tr("Ctrl+O"));
     connect(open_action_, SIGNAL(triggered()), this, SLOT(openGraph()));
 
-    save_action_ = new QAction(tr("Save"), this);
+    save_action_ = new QAction(tr("Сохранить..."), this);
     save_action_->setShortcut(tr("Ctrl+S"));
     connect(save_action_, SIGNAL(triggered()), this, SLOT(saveGraph()));
 
-    exit_action_ = new QAction(tr("Exit"), this);
+    exit_action_ = new QAction(tr("Выход"), this);
     connect(exit_action_, SIGNAL(triggered()), this, SLOT(close()));
 
-    about_action_ = new QAction(tr("About"), this);
+    about_action_ = new QAction(tr("О предложении"), this);
     connect(about_action_, SIGNAL(triggered()), this, SLOT(about()));
 
-    help_action_ = new QAction(tr("Help"), this);
+    help_action_ = new QAction(tr("Справка"), this);
     //connect(exit_action_, SIGNAL(triggered()), this, SLOT(close()));
 
     delete_action_ = new QAction(QIcon(":/icons/delete.png"), tr("Delete"), this);
@@ -52,15 +56,23 @@ void MainWindow::createActions()
 
 void MainWindow::createMenu()
 {
-    file_menu_ = menuBar()->addMenu(tr("File"));
-    file_menu_->addAction(new_action_);
+    file_menu_ = menuBar()->addMenu(tr("Файл"));
+    new_menu_ = file_menu_->addMenu(tr("Новый граф"));
+    new_menu_->addAction(new_visual_action_);
+    new_menu_->addAction(new_adjmat_action_);
+    new_menu_->addAction(new_incmat_action_);
+    new_menu_->addAction(new_wmat_action_);
+    new_menu_->addAction(new_edglist_action_);
+    new_menu_->addAction(new_structadj_action_);
+
     file_menu_->addAction(open_action_);
     file_menu_->addAction(save_action_);
     file_menu_->addAction(exit_action_);
 
-    help_menu_ = menuBar()->addMenu(tr("Help"));
+    help_menu_ = menuBar()->addMenu(tr("Помощь"));
     help_menu_->addAction(about_action_);
     help_menu_->addAction(help_action_);
+
 }
 
 void MainWindow::createToolbars()
@@ -106,6 +118,9 @@ void MainWindow::createToolbars()
     graph_toolbar_->addWidget(pointerButton);
     graph_toolbar_->addWidget(lineButton);
     graph_toolbar_->addAction(delete_action_);
+
+    view_toolbar_->setEnabled(false);
+    graph_toolbar_->setEnabled(false);
 }
 
 void MainWindow::setupPageWidget()
@@ -141,7 +156,7 @@ void MainWindow::setupPageWidget()
     pages_widget_->addWidget(incmat_view_);
     pages_widget_->addWidget(wmat_view_);
     pages_widget_->addWidget(edglist_view_);
-    pages_widget_->addWidget(structadj_view_);
+    pages_widget_->addWidget(structadj_view_);    
 }
 
 void MainWindow::changePage(int i)
@@ -159,7 +174,19 @@ void MainWindow::visualGraphGroupClicked(int)
     scene_->setMode(GraphScene::Mode(visual_graph_group_->checkedId()));
 }
 
-void MainWindow::newGraph()
+void MainWindow::start()
+{
+    setupPageWidget();
+    QHBoxLayout *layout = new QHBoxLayout;
+    layout->addWidget(pages_widget_);
+    QWidget *widget = new QWidget;
+    widget->setLayout(layout);
+    setCentralWidget(widget);
+    graph_toolbar_->setEnabled(true);
+    view_toolbar_->setEnabled(true);
+}
+
+void MainWindow::startNewAdjMat()
 {
     NewAdjMat *dialog = new NewAdjMat("Матрица смежности");
     connect(dialog, SIGNAL(finishEnterData(CoreGraph*)), this, SLOT(gotGraphFromDialog(CoreGraph*)));
@@ -190,6 +217,7 @@ void MainWindow::about()
 
 void MainWindow::gotGraphFromDialog(CoreGraph *g)
 {    
+    start();
     graph_ = g;
     scene_->drawGraph(g);
 }
