@@ -10,6 +10,7 @@
 #include "newincmat.h"
 #include "newwmat.h"
 #include "newedglist.h"
+#include "newstructadj.h"
 
 #include <QMainWindow>
 #include <QDebug>
@@ -28,6 +29,7 @@ private slots:
     void startNewIncMat();
     void startNewWMat();
     void startNewEdgList();
+    void startNewStructAdj();
     void openGraph();
     void saveGraph();
     void about();

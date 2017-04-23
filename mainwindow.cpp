@@ -37,6 +37,7 @@ void MainWindow::createActions()
     connect(new_edglist_action_, SIGNAL(triggered()), this, SLOT(startNewEdgList()));
 
     new_structadj_action_ = new QAction(tr("С структуры смежности..."));
+    connect(new_structadj_action_, SIGNAL(triggered()), this, SLOT(startNewStructAdj()));
 
 
     open_action_ = new QAction(tr("Октрыть..."), this);
@@ -216,6 +217,13 @@ void MainWindow::startNewWMat()
 void MainWindow::startNewEdgList()
 {
     NewEdgList *dialog = new NewEdgList();
+    connect(dialog, SIGNAL(finishEnterData(CoreGraph*)), this, SLOT(gotGraphFromDialog(CoreGraph*)));
+    dialog->exec();
+}
+
+void MainWindow::startNewStructAdj()
+{
+    NewStructAdj *dialog = new NewStructAdj();
     connect(dialog, SIGNAL(finishEnterData(CoreGraph*)), this, SLOT(gotGraphFromDialog(CoreGraph*)));
     dialog->exec();
 }

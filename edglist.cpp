@@ -66,9 +66,9 @@ QVariant EdgList::headerData(int section, Qt::Orientation orientation, int role)
 {
     if (role == Qt::DisplayRole) {
         if (orientation == Qt::Horizontal && section == 0)
-            return QVariant("Begin");
+            return QVariant("Начало");
         if (orientation == Qt::Horizontal && section == 1)
-            return QVariant("End");
+            return QVariant("Конец");
     }
     return QVariant();
 }
