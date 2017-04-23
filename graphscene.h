@@ -20,6 +20,7 @@ public:
     void setGraph(CoreGraph * g) {graph_ = g;}
     void saveTo(QString filename);
     void readFrom(QString filename);
+    void drawGraph(CoreGraph *g);
 public slots:
     void deleteItem();
 

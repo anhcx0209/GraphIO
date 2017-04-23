@@ -6,7 +6,7 @@
 #include "structadj.h"
 #include "wmat.h"
 #include "graphscene.h"
-#include "enterdialog.h"
+#include "newadjmat.h"
 
 #include <QMainWindow>
 #include <QDebug>
@@ -24,6 +24,8 @@ private slots:
     void openGraph();
     void saveGraph();
     void about();
+
+    void gotGraphFromDialog(CoreGraph *);
 
     void changePage(int);
     void visualGraphGroupClicked(int);

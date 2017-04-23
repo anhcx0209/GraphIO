@@ -75,6 +75,47 @@ void GraphScene::readFrom(QString filename)
     fi.close();
 }
 
+void GraphScene::drawGraph(CoreGraph *g)
+{
+    graph_ = g;
+    clear();
+    QPointF pos(2150, 2350);
+    QPointF delta(50, 50);
+    GraphPoint *point;
+    GraphArrowExtend *arrow;
+    QList<GraphPoint *> listPoints;
+
+    foreach (CoreVertex *v, graph_->vertexs()) {
+        point = new GraphPoint();
+        point->setVertex(v);
+        point->setPos(pos);
+        addItem(point);
+        listPoints.append(point);
+        pos = pos + delta;
+    }
+
+    GraphPoint *begin;
+    GraphPoint *end;
+
+    foreach (CoreEdge *e, graph_->edges()) {
+        CoreVertex *a = e->getBegin();
+        CoreVertex *b = e->getEnd();
+
+        // find vertex to add arrow
+        for (int j = 0; j < listPoints.size(); j++) {
+            if (listPoints.at(j)->vertex() == a)
+                begin = listPoints.at(j);
+            if (listPoints.at(j)->vertex() == b)
+                end = listPoints.at(j);
+        }
+        arrow = new GraphArrowExtend(begin, end);
+        begin->addArrowExtend(arrow);
+        end->addArrowExtend(arrow);
+        arrow->setEdge(e);
+        addItem(arrow);
+    }
+}
+
 void GraphScene::deleteItem()
 {
     foreach (QGraphicsItem *item, selectedItems()) {
@@ -140,6 +181,7 @@ void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         point = new GraphPoint();
         addItem(point);
         point->setPos(mouseEvent->scenePos());
+        qDebug() << point->pos();
         v = new CoreVertex(QString::number(def_name_));
         def_name_++;
         graph_->addVertex(v);

@@ -113,8 +113,8 @@ void MainWindow::setupPageWidget()
     // Visual graph
     graph_ = new CoreGraph();
     scene_ = new GraphScene(this);
-    scene_->setSceneRect(QRectF(0, 0, 5000, 5000));
-    view_ = new QGraphicsView(scene_);
+    scene_->setSceneRect(QRectF(0, 0, 5000, 5000));    
+    view_ = new QGraphicsView(scene_);    
     scene_->setGraph(graph_);
     // Connect to delete action
     connect(delete_action_, SIGNAL(triggered()), scene_, SLOT(deleteItem()));
@@ -161,8 +161,9 @@ void MainWindow::visualGraphGroupClicked(int)
 
 void MainWindow::newGraph()
 {
-    EnterDialog dialog;
-    dialog.exec();
+    NewAdjMat *dialog = new NewAdjMat("Матрица смежности");
+    connect(dialog, SIGNAL(finishEnterData(CoreGraph*)), this, SLOT(gotGraphFromDialog(CoreGraph*)));
+    dialog->exec();
 }
 
 void MainWindow::openGraph()
@@ -180,4 +181,11 @@ void MainWindow::about()
     QMessageBox::about(this, tr("GraphIO 2.0"),
                        tr("The <b>Graph creator</b> example shows "
                           "use of the graphics framework."));
+}
+
+void MainWindow::gotGraphFromDialog(CoreGraph *g)
+{
+    qDebug() << "Got data";
+    graph_ = g;
+    scene_->drawGraph(g);
 }
