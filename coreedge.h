@@ -18,11 +18,14 @@ public:
     QString id() {return id_;}
     void setId(QString i) {id_ = i;}
 
-    qreal weight() {return weight_;}
+    qreal weight() const {return weight_;}
     void setWeight(qreal w) {weight_ = w;}
+    bool valid();
 
-    CoreVertex *getBegin() {return begin_;}
-    CoreVertex *getEnd() {return end_;}
+    void setBegin(CoreVertex *b) { begin_ = b; }
+    void setEnd(CoreVertex *e) { end_ = e; }
+    CoreVertex *getBegin() const {return begin_;}
+    CoreVertex *getEnd() const {return end_;}
 };
 
 #endif // COREEDGE_H

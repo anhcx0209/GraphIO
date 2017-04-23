@@ -20,10 +20,15 @@ CoreEdge *CoreGraph::createEdge(CoreVertex *a, CoreVertex *b)
     return e;
 }
 
+void CoreGraph::addEdge()
+{
+    CoreEdge *e = new CoreEdge(0, 0);
+    list_edges_.append(e);
+}
+
 void CoreGraph::addVertex(CoreVertex *new_vertex)
 {
-    list_vertexs_.append(new_vertex);
-    emit changed();
+    list_vertexs_.append(new_vertex);    
 }
 
 void CoreGraph::removeVertex(CoreVertex *v)
@@ -40,6 +45,15 @@ void CoreGraph::removeVertex(CoreVertex *v)
 void CoreGraph::removeEdge(CoreEdge *e)
 {
     list_edges_.removeOne(e);
+}
+
+bool CoreGraph::validate()
+{
+    bool valid = true;
+    foreach (CoreEdge *e, list_edges_) {
+        valid &= e->valid();
+    }
+    return valid;
 }
 
 bool CoreGraph::hasEdge(CoreVertex *a, CoreVertex *b) const

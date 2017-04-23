@@ -14,16 +14,15 @@ class CoreGraph : public QObject
 private:
     QList<CoreVertex *> list_vertexs_;
     QList<CoreEdge *> list_edges_;
-signals:
-    void changed();
-
 public:
     CoreGraph();
 
     CoreEdge *createEdge(CoreVertex *a, CoreVertex *b);
+    void addEdge();
     void addVertex(CoreVertex *new_vertex);
     void removeVertex(CoreVertex *v);
     void removeEdge(CoreEdge *e);
+    bool validate();
 
     bool hasEdge(CoreVertex *a, CoreVertex *b) const;
     CoreEdge *edgeBetween(CoreVertex *a, CoreVertex *b) const;

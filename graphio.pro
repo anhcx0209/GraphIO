@@ -37,7 +37,8 @@ SOURCES += main.cpp\
     structadj.cpp \
     wmat.cpp \
     enterdialog.cpp \
-    newadjmat.cpp
+    newadjmat.cpp \
+    newincmat.cpp
 
 HEADERS  += mainwindow.h \
     coreedge.h \
@@ -52,7 +53,8 @@ HEADERS  += mainwindow.h \
     structadj.h \
     wmat.h \
     enterdialog.h \
-    newadjmat.h
+    newadjmat.h \
+    newincmat.h
 
 RESOURCES += \
     graphio.qrc
