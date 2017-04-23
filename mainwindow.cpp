@@ -31,8 +31,10 @@ void MainWindow::createActions()
     connect(new_incmat_action_, SIGNAL(triggered()), this, SLOT(startNewIncMat()));
 
     new_wmat_action_ = new QAction(tr("С матрицы весов..."));
-    new_edglist_action_ = new QAction(tr("С списки ребер..."));;
-    new_structadj_action_ = new QAction(tr("С структуры смежности..."));;;
+    connect(new_wmat_action_, SIGNAL(triggered()), this, SLOT(startNewWMat()));
+
+    new_edglist_action_ = new QAction(tr("С списки ребер..."));
+    new_structadj_action_ = new QAction(tr("С структуры смежности..."));
 
 
     open_action_ = new QAction(tr("Октрыть..."), this);
@@ -198,6 +200,13 @@ void MainWindow::startNewAdjMat()
 void MainWindow::startNewIncMat()
 {
     NewIncMat *dialog = new NewIncMat("Матрица инцидентности");
+    connect(dialog, SIGNAL(finishEnterData(CoreGraph*)), this, SLOT(gotGraphFromDialog(CoreGraph*)));
+    dialog->exec();
+}
+
+void MainWindow::startNewWMat()
+{
+    NewWMat *dialog = new NewWMat("Матрица весов графа");
     connect(dialog, SIGNAL(finishEnterData(CoreGraph*)), this, SLOT(gotGraphFromDialog(CoreGraph*)));
     dialog->exec();
 }

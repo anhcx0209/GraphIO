@@ -8,6 +8,7 @@
 #include "graphscene.h"
 #include "newadjmat.h"
 #include "newincmat.h"
+#include "newwmat.h"
 
 #include <QMainWindow>
 #include <QDebug>
@@ -24,6 +25,7 @@ private slots:
     void start();
     void startNewAdjMat();
     void startNewIncMat();
+    void startNewWMat();
     void openGraph();
     void saveGraph();
     void about();
