@@ -83,6 +83,13 @@ void GraphArrowExtend::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
+void GraphArrowExtend::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *)
+{
+    double w = QInputDialog::getDouble(0, "Введите вес ребра", "Вес ребра");
+    this->edge()->setWeight(w);
+    this->setSelected(false);
+}
+
 void GraphArrowExtend::updatePosition()
 {
     QPointF p1, p2;

@@ -24,7 +24,7 @@ void GraphScene::readFrom(QString filename)
     int b, e;
     double w;
     qreal px, py;
-    this->clear();
+    clear();
     graph_ = new CoreGraph();
     QList<GraphPoint *> points;
 
@@ -35,7 +35,7 @@ void GraphScene::readFrom(QString filename)
 
     if (fi.open(QFile::ReadOnly)) {
         QTextStream in(&fi);
-        in >> n;
+        in >> n;        
         for (int i = 0; i < n; i++) {
             in >> pid >> px >> py;
             point = new GraphPoint();

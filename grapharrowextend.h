@@ -3,6 +3,7 @@
 
 #include <QGraphicsPathItem>
 #include <QtGui>
+#include <QInputDialog>
 #include "graphpoint.h"
 #include "coreedge.h"
 
@@ -39,6 +40,7 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
 
     CoreEdge *edge() {return edge_;}
     void setEdge(CoreEdge *e) {edge_ = e;}

@@ -168,12 +168,17 @@ void MainWindow::newGraph()
 
 void MainWindow::openGraph()
 {
-    qDebug() << "open graph...";
+    QString file;
+    file = QFileDialog::getOpenFileName(this, tr("Open file"), tr("/Users/anhcx/8/IO/file"), tr("Graph data file (*.graph)"));
+    scene_->readFrom(file);
+    graph_ = scene_->graph();
 }
 
 void MainWindow::saveGraph()
 {
-    qDebug() << "save graph...";
+    QString saveFileName;
+    saveFileName = QFileDialog::getSaveFileName(this, tr("Save to file"), tr("/Users/anhcx/8/IO/file"), tr("Graph data file (*.graph)"));
+    scene_->saveTo(saveFileName);
 }
 
 void MainWindow::about()
@@ -184,8 +189,7 @@ void MainWindow::about()
 }
 
 void MainWindow::gotGraphFromDialog(CoreGraph *g)
-{
-    qDebug() << "Got data";
+{    
     graph_ = g;
     scene_->drawGraph(g);
 }
