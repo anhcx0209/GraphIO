@@ -31,7 +31,7 @@ private:
 
     // Override functions
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-    QRectF boundingRect() const override;
+    QRectF boundingRect() const override;    
 public:    
     GraphArrowExtend(GraphPoint *start, GraphPoint *end, QGraphicsItem *parrent = 0);
     GraphPoint *startItem() { return start_item_; }

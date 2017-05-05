@@ -33,8 +33,15 @@ EnterDialog::EnterDialog(QString name)
     QPushButton *closeButton = new QPushButton(tr("Отмена"));
     connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
     QHBoxLayout *buttonLayout = new QHBoxLayout;
-    buttonLayout->addWidget(finishButton);
+    buttonLayout->addWidget(finishButton);    
     buttonLayout->addWidget(closeButton);
+
+    QGroupBox *logGroup = new QGroupBox("Сообщение");
+    log_label_ = new QLabel;
+    QHBoxLayout *logLayout = new QHBoxLayout;
+    logLayout->addWidget(log_label_);
+    logGroup->setLayout(logLayout);
+
 
     QVBoxLayout *mainLayout = new QVBoxLayout;    
     mainLayout->addLayout(edgesLayout);
@@ -42,7 +49,18 @@ EnterDialog::EnterDialog(QString name)
     mainLayout->addLayout(changeTableLayout);
     mainLayout->addLayout(tableLayout);
     mainLayout->addLayout(buttonLayout);
+    mainLayout->addWidget(logGroup);
     setLayout(mainLayout);
 
     setWindowTitle(name_);
+}
+
+void EnterDialog::sendData()
+{
+    if (data_->validate()) {
+        emit finishEnterData(data_);
+        close();
+    } else {
+        log_label_->setText("Ошибка.");
+    }
 }

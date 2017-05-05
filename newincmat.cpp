@@ -1,6 +1,6 @@
 #include "newincmat.h"
 
-NewIncMat::NewIncMat(QString name) : EnterDialog(name)
+NewIncMat::NewIncMat() : EnterDialog("Матрица инцидентности")
 {
 
 }
@@ -19,13 +19,4 @@ void NewIncMat::enterData()
     }
     table_view_->setModel(new IncMat(g));
     data_ = g;
-}
-
-void NewIncMat::sendData()
-{    
-    if (data_->validate()) {
-        emit finishEnterData(data_);
-    } else {
-        qDebug() << "invalid data";
-    }
 }

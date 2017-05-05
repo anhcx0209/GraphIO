@@ -10,8 +10,7 @@ public:
     NewStructAdj();
 
 protected:
-    void enterData();
-    void sendData();
+    void enterData();    
 };
 
 #endif // NEWSTRUCTADJ_H

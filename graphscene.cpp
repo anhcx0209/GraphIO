@@ -1,5 +1,4 @@
 #include <QtGui>
-#include <QDebug>
 
 #include "graphscene.h"
 
@@ -180,8 +179,7 @@ void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     case InsertItem:
         point = new GraphPoint();
         addItem(point);
-        point->setPos(mouseEvent->scenePos());
-        qDebug() << point->pos();
+        point->setPos(mouseEvent->scenePos());        
         v = new CoreVertex(QString::number(def_name_));
         def_name_++;
         graph_->addVertex(v);

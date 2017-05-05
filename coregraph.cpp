@@ -86,80 +86,37 @@ CoreVertex *CoreGraph::findVertex(QString id)
     return 0;
 }
 
-void CoreGraph::saveAdjMat(QString filename)
-{
-    QFile f(filename);
-    if (f.open(QFile::WriteOnly | QFile::Truncate)) {
-        QTextStream out(&f);
-        for (int i = 0; i < vertexs().size(); i++) {
-            for (int j = 0; j < vertexs().size(); j++) {
-                if (hasEdge(vertexs().at(i), vertexs().at(j))) {
-                    out << "1 ";
-                } else  {
-                    out << "0 ";
-                }
-            }
-            out << endl;
-        }
-    }
-}
-
-void CoreGraph::saveEdgList(QString filename)
-{
-    QFile f(filename);
-    if (f.open(QFile::WriteOnly | QFile::Truncate)) {
-        QTextStream out(&f);
-        for (int i = 0; i < edges().size(); i++) {
-            out << edges().at(i)->getBegin()->id() << " " <<
-                   edges().at(i)->getEnd()->id();
-            out << endl;
-        }
-    }
-}
-
-void CoreGraph::saveIncMat(QString filename)
-{
-    QFile f(filename);
-    if (f.open(QFile::WriteOnly | QFile::Truncate)) {
-        QTextStream out(&f);
-        for (int i = 0; i < vertexs().size(); i++) {
-            for (int j = 0; j < edges().size(); j++) {
-                CoreVertex *v = vertexs().at(i);
-                CoreEdge *e = edges().at(j);
-
-                if (e->getBegin() == v) {
-                    out << "+1 ";
-                } else {
-                    if (e->getEnd() == v) {
-                       out << "-1 ";
-                    } else {
-                        out << "0 ";
-                    }
-                }
-            }
-            out << endl;
-        }
-    }
-}
-
-void CoreGraph::saveStructAdj(QString filename)
-{
-    QFile f(filename);
-    if (f.open(QFile::WriteOnly | QFile::Truncate)) {
-        QTextStream out(&f);
-        for (int i = 0; i < vertexs().size(); i++) {
-            for (int j = 0; j < edges().size(); j++) {
-                if (edges().at(j)->getBegin() == vertexs().at(i)) {
-                    out << vertexs().at(i)->id() << ", ";
-                }
-            }
-            out << endl;
-        }
-    }
-}
-
 void CoreGraph::clear()
 {
     list_vertexs_.clear();
     list_edges_.clear();
+}
+
+void CoreGraph::bfs(CoreVertex *s)
+{
+
+}
+
+void CoreGraph::eraseFlag() {
+    foreach (CoreVertex *v, list_vertexs_)
+        v->setVisit(false);
+}
+
+void CoreGraph::dfs(CoreVertex *s)
+{
+    QStack stack = QStack();
+    stack.push(s);
+    s->setVisit(true);
+
+    // dfs
+    while (!stack.empty()) {
+        CoreVertex *v = stack.pop();
+        qDebug() << "visit " << v;
+        foreach (CoreEdge *e, list_edges_) {
+            if (e->getBegin() == v && e->getEnd()->visit()) {
+                stack.push(e->getEnd());
+            }
+        }
+    }
+
 }

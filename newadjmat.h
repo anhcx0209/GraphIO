@@ -7,11 +7,11 @@
 class NewAdjMat : public EnterDialog
 {
 public:
-    NewAdjMat(QString);
+    NewAdjMat();
 
 protected slots:
     void enterData();
-    void sendData();
+
 };
 
 #endif // NEWADJMAT_H

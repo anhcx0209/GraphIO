@@ -16,10 +16,4 @@ void NewStructAdj::enterData()
     data_ = g;
 }
 
-void NewStructAdj::sendData()
-{
-    if (data_->validate())
-        emit finishEnterData(data_);
-}
-
 

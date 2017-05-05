@@ -19,9 +19,3 @@ void NewEdgList::enterData()
     table_view_->setModel(new EdgList(g));
     data_ = g;
 }
-
-void NewEdgList::sendData()
-{
-    if (data_->validate())
-        emit finishEnterData(data_);
-}

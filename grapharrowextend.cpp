@@ -8,7 +8,7 @@ const qreal D_ANGLE = 5;
 
 GraphArrowExtend::GraphArrowExtend(GraphPoint *start, GraphPoint *end, QGraphicsItem *parent)
     :QGraphicsPathItem(parent)
-{    
+{        
     start_item_ = start;
     end_item_ = end;
     pos_to_insert_ = 0;
@@ -30,7 +30,7 @@ GraphArrowExtend::GraphArrowExtend(GraphPoint *start, GraphPoint *end, QGraphics
 }
 
 void GraphArrowExtend::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{
+{    
     pos_to_insert_ = findPosBefore(event->scenePos());
     if (pos_to_insert_ != -1) {
         line1 = new QGraphicsLineItem(QLineF(list_point_[pos_to_insert_], event->scenePos()));
@@ -51,6 +51,7 @@ void GraphArrowExtend::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void GraphArrowExtend::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
+
     if (line1 != 0 & line2 != 0) {
         if (line1->line().angleTo(line2->line()) > 20 && line1->line().angleTo(line2->line()) < 340) {
             if (line1 != 0 && line2 != 0) {
@@ -71,9 +72,8 @@ void GraphArrowExtend::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 }
 
 void GraphArrowExtend::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{    
+{
     if (line1 != 0 && line2 != 0) {
-
         QLineF newLine1(line1->line().p1(), event->scenePos());
         QLineF newLine2(event->scenePos(), line2->line().p2());
         line1->setLine(newLine1);
@@ -87,7 +87,9 @@ void GraphArrowExtend::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *)
 {
     double w = QInputDialog::getDouble(0, "Введите вес ребра", "Вес ребра");
     this->edge()->setWeight(w);
-    this->setSelected(false);
+    this->updateMicroFocus();
+    line1 = 0;
+    line2 = 0;
 }
 
 void GraphArrowExtend::updatePosition()

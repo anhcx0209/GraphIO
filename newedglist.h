@@ -10,7 +10,6 @@ public:
     NewEdgList();
 protected:
     void enterData();
-    void sendData();
 };
 
 #endif // NEWEDGLIST_H

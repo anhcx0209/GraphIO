@@ -1,5 +1,4 @@
 #include "edglist.h"
-#include <QDebug>
 
 EdgList::EdgList(CoreGraph *g)
 {

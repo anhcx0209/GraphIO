@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
     createMenu();
     createToolbars();
 
-    QWidget *widget = new QWidget;    
+    QWidget *widget = new QWidget;
     setCentralWidget(widget);
     setWindowTitle(tr("GraphIO"));
     setUnifiedTitleAndToolBarOnMac(true);
@@ -136,7 +136,7 @@ void MainWindow::setupPageWidget()
     graph_ = new CoreGraph();
     scene_ = new GraphScene(this);
     scene_->setSceneRect(QRectF(0, 0, 5000, 5000));    
-    view_ = new QGraphicsView(scene_);    
+    view_ = new QGraphicsView(scene_);
     scene_->setGraph(graph_);
     // Connect to delete action
     connect(delete_action_, SIGNAL(triggered()), scene_, SLOT(deleteItem()));
@@ -195,21 +195,21 @@ void MainWindow::start()
 
 void MainWindow::startNewAdjMat()
 {
-    NewAdjMat *dialog = new NewAdjMat("Матрица смежности");
+    NewAdjMat *dialog = new NewAdjMat();
     connect(dialog, SIGNAL(finishEnterData(CoreGraph*)), this, SLOT(gotGraphFromDialog(CoreGraph*)));
     dialog->exec();
 }
 
 void MainWindow::startNewIncMat()
 {
-    NewIncMat *dialog = new NewIncMat("Матрица инцидентности");
+    NewIncMat *dialog = new NewIncMat();
     connect(dialog, SIGNAL(finishEnterData(CoreGraph*)), this, SLOT(gotGraphFromDialog(CoreGraph*)));
     dialog->exec();
 }
 
 void MainWindow::startNewWMat()
 {
-    NewWMat *dialog = new NewWMat("Матрица весов графа");
+    NewWMat *dialog = new NewWMat();
     connect(dialog, SIGNAL(finishEnterData(CoreGraph*)), this, SLOT(gotGraphFromDialog(CoreGraph*)));
     dialog->exec();
 }

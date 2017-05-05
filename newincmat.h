@@ -7,7 +7,7 @@
 class NewIncMat : public EnterDialog
 {
 public:
-    NewIncMat(QString);
+    NewIncMat();
 protected:
     void enterData();
     void sendData();

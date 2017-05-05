@@ -9,6 +9,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QTableView>
+#include <QGroupBox>
 #include "coregraph.h"
 
 class EnterDialog : public QDialog
@@ -22,13 +23,14 @@ signals:
 
 protected slots:
     virtual void enterData() = 0;
-    virtual void sendData() = 0;
+    void sendData();
 
 protected:
     QString name_;
     QComboBox *type_combobox_;
     QSpinBox *number_edges_spinbox_;
     QSpinBox *number_vertexs_spinbox_;
+    QLabel *log_label_;
 
     QTableView *table_view_;
     CoreGraph *data_;

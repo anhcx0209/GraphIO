@@ -1,6 +1,6 @@
 #include "newwmat.h"
 
-NewWMat::NewWMat(QString name) : EnterDialog(name)
+NewWMat::NewWMat() : EnterDialog("Матрица весов графа")
 {
     number_edges_spinbox_->setEnabled(false);
 }
@@ -14,13 +14,4 @@ void NewWMat::enterData()
     }
     table_view_->setModel(new WMat(g));
     data_ = g;
-}
-
-void NewWMat::sendData()
-{
-    if (data_->validate()) {
-        emit finishEnterData(data_);
-    } else {
-        qDebug() << "invalid data";
-    }
 }

@@ -6,6 +6,8 @@
 #include <QList>
 #include <QFile>
 #include <QTextStream>
+#include <QStack>
+#include <QQueue>
 
 class CoreGraph : public QObject
 {
@@ -34,10 +36,9 @@ public:
     QList<CoreVertex *> vertexs() const {return list_vertexs_;}
     QList<CoreEdge *> edges() const {return list_edges_;}
 
-    void saveAdjMat(QString filename);
-    void saveEdgList(QString filename);
-    void saveIncMat(QString filename);
-    void saveStructAdj(QString filename);
+    void eraseFlag();
+    void bfs(CoreVertex *);
+    void dfs(CoreVertex *);
 };
 
 #endif // COREGRAPH_H

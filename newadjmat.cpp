@@ -1,6 +1,6 @@
 #include "newadjmat.h"
 
-NewAdjMat::NewAdjMat(QString name) : EnterDialog(name)
+NewAdjMat::NewAdjMat() : EnterDialog("Матрица смежности")
 {
     number_edges_spinbox_->setEnabled(false);
 }
@@ -14,12 +14,6 @@ void NewAdjMat::enterData()
     }
     table_view_->setModel(new AdjMat(g));
     data_ = g;
-}
-
-void NewAdjMat::sendData()
-{
-    emit finishEnterData(data_);
-    close();
 }
 
 

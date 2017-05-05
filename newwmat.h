@@ -7,10 +7,9 @@
 class NewWMat : public EnterDialog
 {
 public:
-    NewWMat(QString);
+    NewWMat();
 protected:
-    void enterData();
-    void sendData();
+    void enterData();    
 };
 
 #endif // NEWWMAT_H
