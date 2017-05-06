@@ -11,7 +11,7 @@ public:
 
 protected slots:
     void enterData();
-
+    void notice(QString);
 };
 
 #endif // NEWADJMAT_H

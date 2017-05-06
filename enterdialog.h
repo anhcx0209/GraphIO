@@ -24,6 +24,7 @@ signals:
 protected slots:
     virtual void enterData() = 0;
     void sendData();
+    void notice(QString);
 
 protected:
     QString name_;

@@ -37,19 +37,35 @@ QVariant StructAdj::data(const QModelIndex &index, int role) const
 
 bool StructAdj::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    QString allow_vertex_mess = "Разрешить имя вершины: 1-" + QString::number(graph_->edges().size());
+    QString message = allow_vertex_mess + "\nСоздать ребро между вершиной и самой собой не позволяет";
+
     if (role == Qt::EditRole) {
+
         QStringList listId = value.toString().remove(QChar(' ')).split(',');
         CoreVertex *u = graph_->vertexs().at(index.row());
+        // delete all edge start with u
+        QList<CoreEdge *> deleteList;
+        foreach (CoreEdge *e, graph_->edges()) {
+            if (e->getBegin() == u)
+                deleteList.append(e);
+        }
+        foreach (CoreEdge *e, deleteList) {
+            graph_->removeEdge(e);
+        }
+
         CoreVertex *v = 0;
         foreach (QString id, listId) {
             v = graph_->findVertex(id);
+
             if (v != 0 && v != u) {
                 graph_->createEdge(u, v);
+                message = "Успешно задать данные";
             }
         }
     }
 
-    dataChanged(index, index);
+    emit editCompleted(message);
     return true;
 }
 

@@ -35,6 +35,8 @@ QVariant EdgList::data(const QModelIndex &index, int role) const
 
 bool EdgList::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    QString allow_vertex_mess = "Разрешить имя вершины: 1-" + QString::number(graph_->edges().size());
+    QString message = allow_vertex_mess + "\nСоздать ребро между вершиной и самой собой не позволяет";
     if (role == Qt::EditRole) {
         bool ok;
         value.toInt(&ok);
@@ -44,15 +46,22 @@ bool EdgList::setData(const QModelIndex &index, const QVariant &value, int role)
             v = graph_->findVertex(value.toString());
 
             if (index.column() == 0 && v != 0) {
-                e->setBegin(v);
+                if (e->getEnd() != v) {
+                    e->setBegin(v);
+                    message = "Успешно задать данные.";
+                }
             }
 
             if (index.column() == 1 && v != 0) {
-                e->setEnd(v);
+                if (e->getBegin() != v) {
+                    e->setEnd(v);
+                    message = "Успешно задать данные.";
+                }
             }
         }
     }
-    dataChanged(index, index);
+
+    emit editCompleted(message);
     return true;
 }
 

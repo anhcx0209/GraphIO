@@ -16,6 +16,9 @@ void NewEdgList::enterData()
     for (int i = 1; i < m+1; i++) {
         g->addEdge();
     }
-    table_view_->setModel(new EdgList(g));
+
+    EdgList *model = new EdgList(g);
+    table_view_->setModel(model);
+    connect(model, SIGNAL(editCompleted(QString)), this, SLOT(notice(QString)));
     data_ = g;
 }

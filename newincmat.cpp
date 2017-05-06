@@ -6,8 +6,7 @@ NewIncMat::NewIncMat() : EnterDialog("Матрица инцидентности"
 }
 
 void NewIncMat::enterData()
-{
-    qDebug() << "enter data";
+{    
     CoreGraph *g = new CoreGraph;
     int n = number_vertexs_spinbox_->value();
     for (int i = 1; i < n+1; i++) {
@@ -17,6 +16,9 @@ void NewIncMat::enterData()
     for (int i = 1; i < m+1; i++) {
         g->addEdge();
     }
-    table_view_->setModel(new IncMat(g));
+
+    IncMat *model = new IncMat(g);
+    table_view_->setModel(model);
+    connect(model, SIGNAL(editCompleted(QString)), this, SLOT(notice(QString)));
     data_ = g;
 }

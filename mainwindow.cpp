@@ -146,18 +146,23 @@ void MainWindow::setupPageWidget()
 
     // Adjacency matrix
     adjmat_view_ = new QTableView;
+    adjmat_view_->setEditTriggers(QAbstractItemView::NoEditTriggers);
     adjmat_view_->setModel(new AdjMat(graph_));
     // List of edges
     edglist_view_ = new QTableView;
+    edglist_view_->setEditTriggers(QAbstractItemView::NoEditTriggers);
     edglist_view_->setModel(new EdgList(graph_));
-    // IN
+    // Inc mat
     incmat_view_ = new QTableView;
+    incmat_view_->setEditTriggers(QAbstractItemView::NoEditTriggers);
     incmat_view_->setModel(new IncMat(graph_));
-    // struct adj
+    // Struct adj
     structadj_view_ = new QTableView;
+    structadj_view_->setEditTriggers(QAbstractItemView::NoEditTriggers);
     structadj_view_->setModel(new StructAdj(graph_));
-    // w mat
+    // W mat
     wmat_view_ = new QTableView;
+    wmat_view_->setEditTriggers(QAbstractItemView::NoEditTriggers);
     wmat_view_->setModel(new WMat(graph_));
 
     pages_widget_ = new QStackedWidget;
@@ -253,9 +258,9 @@ void MainWindow::openHelp()
 
 void MainWindow::about()
 {
-    QMessageBox::about(this, tr("GraphIO 2.0"),
-                       tr("The <b>Graph creator</b> example shows "
-                          "use of the graphics framework."));
+    QMessageBox::about(this, tr("GraphIO 3.0"),
+                       tr("Предложение <b>Graph IO</b> версия "
+                          "3.0 для отображения граф. Автор: AnhCx"));
 }
 
 void MainWindow::gotGraphFromDialog(CoreGraph *g)

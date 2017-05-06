@@ -20,9 +20,11 @@ public:
     CoreGraph *graph() const {return graph_;}
     void setGraph(CoreGraph *g) { graph_ = g; }
 
-    void save(QString filename);    
+    void save(QString filename);
 private:
     CoreGraph *graph_;
+signals:
+    void editCompleted(const QString &);
 };
 
 #endif // ADJMAT_H

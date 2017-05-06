@@ -12,6 +12,9 @@ void NewWMat::enterData()
     for (int i = 1; i < n+1; i++) {
         g->addVertex(new CoreVertex(QString::number(i)));
     }
-    table_view_->setModel(new WMat(g));
+    WMat *model = new WMat(g);
+    table_view_->setModel(model);
+    connect(model, SIGNAL(editCompleted(QString)), this, SLOT(notice(QString)));
+
     data_ = g;
 }

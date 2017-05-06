@@ -6,6 +6,7 @@
 
 class EdgList : public QAbstractTableModel
 {
+    Q_OBJECT
 private:
     CoreGraph *graph_;
 public:
@@ -16,6 +17,8 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     Qt::ItemFlags flags(const QModelIndex &index) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+signals:
+    void editCompleted(QString);
 };
 
 #endif // EDGLIST_H

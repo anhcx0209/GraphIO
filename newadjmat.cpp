@@ -2,7 +2,7 @@
 
 NewAdjMat::NewAdjMat() : EnterDialog("Матрица смежности")
 {
-    number_edges_spinbox_->setEnabled(false);
+    number_edges_spinbox_->setEnabled(false);    
 }
 
 void NewAdjMat::enterData()
@@ -12,8 +12,9 @@ void NewAdjMat::enterData()
     for (int i = 1; i < n+1; i++) {
         g->addVertex(new CoreVertex(QString::number(i)));
     }
-    table_view_->setModel(new AdjMat(g));
+
+    AdjMat *model = new AdjMat(g);
+    table_view_->setModel(model);
+    connect(model, SIGNAL(editCompleted(QString)), this, SLOT(notice(QString)));
     data_ = g;
 }
-
-

@@ -53,14 +53,21 @@ EnterDialog::EnterDialog(QString name)
     setLayout(mainLayout);
 
     setWindowTitle(name_);
+    setGeometry(200, 200, 500, 500);
 }
 
 void EnterDialog::sendData()
 {
-    if (data_->validate()) {
+    if (data_ != 0 && data_->validate()) {
         emit finishEnterData(data_);
         close();
     } else {
         log_label_->setText("Ошибка.");
     }
 }
+
+void EnterDialog::notice(QString mess)
+{
+    log_label_->setText(mess);
+}
+

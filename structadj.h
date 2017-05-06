@@ -6,9 +6,9 @@
 
 class StructAdj : public QAbstractTableModel
 {
+    Q_OBJECT
 private:
     CoreGraph *graph_;
-
 public:
     StructAdj(CoreGraph *g);
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -17,6 +17,8 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     Qt::ItemFlags flags(const QModelIndex &index) const;
+signals:
+    void editCompleted(QString);
 };
 
 #endif // STRUCTADJ_H
