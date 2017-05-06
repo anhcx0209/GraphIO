@@ -10,7 +10,9 @@ MainWindow::MainWindow(QWidget *parent)
     QWidget *widget = new QWidget;
     setCentralWidget(widget);
     setWindowTitle(tr("GraphIO"));
+    setWindowIcon(QIcon(":/icons/app_icon.png"));
     setUnifiedTitleAndToolBarOnMac(true);
+    menuBar()->setNativeMenuBar(false);
 }
 
 MainWindow::~MainWindow()

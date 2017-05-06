@@ -91,32 +91,3 @@ void CoreGraph::clear()
     list_vertexs_.clear();
     list_edges_.clear();
 }
-
-void CoreGraph::bfs(CoreVertex *s)
-{
-
-}
-
-void CoreGraph::eraseFlag() {
-    foreach (CoreVertex *v, list_vertexs_)
-        v->setVisit(false);
-}
-
-void CoreGraph::dfs(CoreVertex *s)
-{
-    QStack stack = QStack();
-    stack.push(s);
-    s->setVisit(true);
-
-    // dfs
-    while (!stack.empty()) {
-        CoreVertex *v = stack.pop();
-        qDebug() << "visit " << v;
-        foreach (CoreEdge *e, list_edges_) {
-            if (e->getBegin() == v && e->getEnd()->visit()) {
-                stack.push(e->getEnd());
-            }
-        }
-    }
-
-}

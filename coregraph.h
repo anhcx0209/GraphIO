@@ -35,10 +35,6 @@ public:
 
     QList<CoreVertex *> vertexs() const {return list_vertexs_;}
     QList<CoreEdge *> edges() const {return list_edges_;}
-
-    void eraseFlag();
-    void bfs(CoreVertex *);
-    void dfs(CoreVertex *);
 };
 
 #endif // COREGRAPH_H
