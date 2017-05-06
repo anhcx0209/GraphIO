@@ -91,3 +91,34 @@ void CoreGraph::clear()
     list_vertexs_.clear();
     list_edges_.clear();
 }
+
+void CoreGraph::resetFlag()
+{
+    foreach (CoreVertex *v, list_vertexs_) {
+        v->setFlag(false);
+    }
+}
+
+QList<CoreVertex *> CoreGraph::bfs(QString start_id)
+{
+    resetFlag();
+    QQueue<CoreVertex *> queue;
+    QList<CoreVertex *> ret;
+    CoreVertex *start = findVertex(start_id);
+    queue.enqueue(start);
+    start->setFlag(false);
+
+    CoreVertex *u = 0;
+    while (!queue.isEmpty()) {
+        u = queue.dequeue();
+        ret.append(u);          // visit u
+        foreach (CoreVertex *v, list_vertexs_) {
+            if (edgeBetween(u, v) != 0 && v->flag() == false) {
+                v->setFlag(true);
+                queue.enqueue(v);
+            }
+        }
+    }
+
+    return ret;
+}

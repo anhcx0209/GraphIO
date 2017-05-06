@@ -35,6 +35,10 @@ public:
 
     QList<CoreVertex *> vertexs() const {return list_vertexs_;}
     QList<CoreEdge *> edges() const {return list_edges_;}
+
+    // BFS
+    void resetFlag();
+    QList<CoreVertex *> bfs(QString);
 };
 
 #endif // COREGRAPH_H
