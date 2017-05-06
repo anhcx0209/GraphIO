@@ -5,7 +5,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     createActions();
     createMenu();
-    createToolbars();
+    createToolbars();    
 
     QWidget *widget = new QWidget;
     setCentralWidget(widget);
@@ -171,7 +171,7 @@ void MainWindow::setupPageWidget()
     pages_widget_->addWidget(incmat_view_);
     pages_widget_->addWidget(wmat_view_);
     pages_widget_->addWidget(edglist_view_);
-    pages_widget_->addWidget(structadj_view_);    
+    pages_widget_->addWidget(structadj_view_);
 }
 
 void MainWindow::changePage(int i)
@@ -191,9 +191,15 @@ void MainWindow::visualGraphGroupClicked(int)
 
 void MainWindow::start()
 {
-    setupPageWidget();
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->addWidget(pages_widget_);
+    // get up page widget
+    setupPageWidget();    
+    // set up search tool box
+    search_widget_ = new SearchToolWidget();
+
+    QGridLayout *layout = new QGridLayout;
+    layout->addWidget(pages_widget_, 0, 0, 2, 1);
+    layout->addWidget(search_widget_, 0, 1);
+
     QWidget *widget = new QWidget;
     widget->setLayout(layout);
     setCentralWidget(widget);

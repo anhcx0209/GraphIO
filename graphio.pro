@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     newwmat.cpp \
     newedglist.cpp \
     newstructadj.cpp \
-    helpdialog.cpp
+    helpdialog.cpp \
+    searchtoolwidget.cpp
 
 HEADERS  += mainwindow.h \
     coreedge.h \
@@ -62,7 +63,8 @@ HEADERS  += mainwindow.h \
     newwmat.h \
     newedglist.h \
     newstructadj.h \
-    helpdialog.h
+    helpdialog.h \
+    searchtoolwidget.h
 
 RESOURCES += \
     graphio.qrc

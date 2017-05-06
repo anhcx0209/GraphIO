@@ -12,6 +12,7 @@
 #include "newedglist.h"
 #include "newstructadj.h"
 #include "helpdialog.h"
+#include "searchtoolwidget.h"
 
 #include <QMainWindow>
 #include <QDebug>
@@ -45,7 +46,7 @@ private:
     void createActions();
     void createMenu();
     void createToolbars();
-    void setupPageWidget();
+    void setupPageWidget();    
 
     CoreGraph *graph_;
 
@@ -59,6 +60,7 @@ private:
     QTableView *wmat_view_;
 
     QStackedWidget *pages_widget_;
+    SearchToolWidget *search_widget_;
 
     QMenu *file_menu_;
     QMenu *view_menu_;
