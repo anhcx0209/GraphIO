@@ -194,7 +194,8 @@ void MainWindow::start()
     // get up page widget
     setupPageWidget();    
     // set up search tool box
-    search_widget_ = new SearchToolWidget(graph_);
+    search_widget_ = new SearchToolWidget(graph_);    
+    connect(search_widget_, SIGNAL(graphChanged()), view_->viewport(), SLOT(update()));
 
     QGridLayout *layout = new QGridLayout;
     layout->addWidget(pages_widget_, 0, 0, 2, 1);

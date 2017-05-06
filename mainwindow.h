@@ -37,8 +37,7 @@ private slots:
     void openHelp();
     void about();
 
-    void gotGraphFromDialog(CoreGraph *);
-
+    void gotGraphFromDialog(CoreGraph *);    
     void changePage(int);
     void visualGraphGroupClicked(int);
 private:

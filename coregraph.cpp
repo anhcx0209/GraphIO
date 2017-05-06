@@ -111,4 +111,8 @@ void CoreGraph::resetFlag()
     foreach (CoreVertex *v, list_vertexs_) {
         v->setFlag(false);
     }
+
+    foreach (CoreEdge *e, list_edges_) {
+        e->setFlag(false);
+    }
 }

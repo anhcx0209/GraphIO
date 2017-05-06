@@ -21,6 +21,7 @@ public:
     void saveTo(QString filename);
     void readFrom(QString filename);
     void drawGraph(CoreGraph *g);
+
 public slots:
     void deleteItem();
 

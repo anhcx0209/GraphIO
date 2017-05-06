@@ -46,7 +46,14 @@ QVariant GraphPoint::itemChange(GraphicsItemChange change, const QVariant &value
 }
 
 void GraphPoint::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
-{    
+{
+    if (vertex_->flag()) {
+        QPen pen;
+        pen.setBrush(Qt::green);
+        pen.setWidth(3);
+        painter->setPen(pen);
+    }
+
     painter->drawEllipse(rect());
     painter->drawText(rect(), Qt::AlignCenter, vertex()->id());
 

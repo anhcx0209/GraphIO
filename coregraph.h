@@ -12,8 +12,6 @@
 
 class CoreGraph : public QObject
 {
-    Q_OBJECT
-
 private:
     QList<CoreVertex *> list_vertexs_;
     QList<CoreEdge *> list_edges_;
@@ -39,7 +37,7 @@ public:
     QList<CoreVertex *> vertexs() const {return list_vertexs_;} // Return vertexs's list
     QList<CoreEdge *> edges() const {return list_edges_;}       // Return edges's list
 
-    void resetFlag();                                       // reset all flag of graph
+    void resetFlag();                                       // reset all flag of graph    
 };
 
 #endif // COREGRAPH_H

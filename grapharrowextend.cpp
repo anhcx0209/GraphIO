@@ -125,12 +125,19 @@ int GraphArrowExtend::findPosBefore(QPointF point)
 }
 
 void GraphArrowExtend::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
-{
+{        
     if (start_item_->collidesWithItem(end_item_))
         return ;
 
     if (isSelected()) {
         painter->setPen(Qt::blue);
+    }
+
+    if (edge_->flag()) {
+        QPen pen;
+        pen.setBrush(Qt::red);
+        pen.setWidth(2);
+        painter->setPen(pen);
     }
 
     QPainterPath linePath(list_point_.first());
