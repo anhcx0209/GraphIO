@@ -6,6 +6,20 @@ CoreGraph::CoreGraph()
     list_edges_.clear();
 }
 
+CoreGraph::CoreGraph(const CoreGraph *obj)
+{
+    foreach (CoreVertex *v, obj->vertexs()) {
+        CoreVertex *newVertex = new CoreVertex(v);
+        list_vertexs_.append(newVertex);
+    }
+
+    foreach (CoreEdge *e, obj->edges()) {
+        CoreEdge *newEdge = new CoreEdge(e);
+        list_edges_.append(newEdge);
+    }
+}
+
+
 CoreEdge *CoreGraph::createEdge(CoreVertex *a, CoreVertex *b)
 {
     CoreEdge *e = 0;
@@ -47,7 +61,7 @@ void CoreGraph::removeEdge(CoreEdge *e)
     list_edges_.removeOne(e);
 }
 
-bool CoreGraph::validate()
+bool CoreGraph::validate() const
 {
     bool valid = true;
     foreach (CoreEdge *e, list_edges_) {
@@ -97,28 +111,4 @@ void CoreGraph::resetFlag()
     foreach (CoreVertex *v, list_vertexs_) {
         v->setFlag(false);
     }
-}
-
-QList<CoreVertex *> CoreGraph::bfs(QString start_id)
-{
-    resetFlag();
-    QQueue<CoreVertex *> queue;
-    QList<CoreVertex *> ret;
-    CoreVertex *start = findVertex(start_id);
-    queue.enqueue(start);
-    start->setFlag(false);
-
-    CoreVertex *u = 0;
-    while (!queue.isEmpty()) {
-        u = queue.dequeue();
-        ret.append(u);          // visit u
-        foreach (CoreVertex *v, list_vertexs_) {
-            if (edgeBetween(u, v) != 0 && v->flag() == false) {
-                v->setFlag(true);
-                queue.enqueue(v);
-            }
-        }
-    }
-
-    return ret;
 }

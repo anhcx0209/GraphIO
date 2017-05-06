@@ -8,9 +8,12 @@ class CoreVertex
 private:
     QString id_;
     bool flag_;
+
 public:
-    CoreVertex(QString i);
-    QString id() {return id_;}
+    CoreVertex(QString i);                  // default constructor
+    CoreVertex(const CoreVertex*);          // copy constructor
+
+    QString id() const {return id_;}
     void setId(QString i) {id_ = i;}
 
     bool flag() const { return flag_; }
