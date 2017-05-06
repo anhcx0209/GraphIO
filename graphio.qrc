@@ -6,5 +6,21 @@
         <file>icons/pointer.png</file>
         <file>icons/app_icon.png</file>
         <file>icons/help_icon.png</file>
+        <file>icons/back.png</file>
+        <file>icons/close.png</file>
+        <file>icons/home.png</file>
+        <file>doc/index.html</file>
+        <file>doc/images/overview.png</file>
+        <file>doc/images/arrow.png</file>
+        <file>doc/images/conver_view.png</file>
+        <file>doc/images/delete.png</file>
+        <file>doc/images/graph1_1.png</file>
+        <file>doc/images/graph1_2.png</file>
+        <file>doc/images/graph2_1.png</file>
+        <file>doc/images/graph3_1.png</file>
+        <file>doc/images/graph4_1.png</file>
+        <file>doc/images/graph5_1.png</file>
+        <file>doc/images/move.png</file>
+        <file>doc/images/point.png</file>
     </qresource>
 </RCC>

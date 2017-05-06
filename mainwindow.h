@@ -11,6 +11,7 @@
 #include "newwmat.h"
 #include "newedglist.h"
 #include "newstructadj.h"
+#include "helpdialog.h"
 
 #include <QMainWindow>
 #include <QDebug>
@@ -32,6 +33,7 @@ private slots:
     void startNewStructAdj();
     void openGraph();
     void saveGraph();
+    void openHelp();
     void about();
 
     void gotGraphFromDialog(CoreGraph *);

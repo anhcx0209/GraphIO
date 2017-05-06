@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     menuBar()->setNativeMenuBar(false);
 }
 
+
 MainWindow::~MainWindow()
 {
 
@@ -57,7 +58,7 @@ void MainWindow::createActions()
     connect(about_action_, SIGNAL(triggered()), this, SLOT(about()));
 
     help_action_ = new QAction(tr("Справка"), this);
-    //connect(exit_action_, SIGNAL(triggered()), this, SLOT(close()));
+    connect(help_action_, SIGNAL(triggered()), this, SLOT(openHelp()));
 
     delete_action_ = new QAction(QIcon(":/icons/delete.png"), tr("Delete"), this);
     delete_action_->setShortcut(tr("Delete"));
@@ -243,6 +244,11 @@ void MainWindow::saveGraph()
     QString saveFileName;
     saveFileName = QFileDialog::getSaveFileName(this, tr("Save to file"), tr("/Users/anhcx/8/IO/file"), tr("Graph data file (*.graph)"));
     scene_->saveTo(saveFileName);
+}
+
+void MainWindow::openHelp()
+{
+    HelpBrowser::showPage("index.html");
 }
 
 void MainWindow::about()
