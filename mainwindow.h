@@ -26,7 +26,8 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 private slots:
-    void start();
+    void start(CoreGraph *);
+    void startNewVisual();
     void startNewAdjMat();
     void startNewIncMat();
     void startNewWMat();
@@ -45,7 +46,7 @@ private:
     void createActions();
     void createMenu();
     void createToolbars();
-    void setupPageWidget();    
+    void setupPageWidget(CoreGraph *);
 
     CoreGraph *graph_;
 

@@ -5,7 +5,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     createActions();
     createMenu();
-    createToolbars();    
+    createToolbars();
+
+    scene_ = new GraphScene(this); // init scenen for reading from file
 
     QWidget *widget = new QWidget;
     setCentralWidget(widget);
@@ -25,7 +27,7 @@ void MainWindow::createActions()
 {
     new_visual_action_ = new QAction(tr("С экрана..."));
     new_visual_action_->setShortcut(tr("Ctrl+N"));
-    connect(new_visual_action_, SIGNAL(triggered()), this, SLOT(start()));
+    connect(new_visual_action_, SIGNAL(triggered()), this, SLOT(startNewVisual()));
 
     new_adjmat_action_ = new QAction(tr("С матрицы смежности..."));
     connect(new_adjmat_action_, SIGNAL(triggered()), this, SLOT(startNewAdjMat()));
@@ -133,14 +135,13 @@ void MainWindow::createToolbars()
     graph_toolbar_->setEnabled(false);
 }
 
-void MainWindow::setupPageWidget()
+void MainWindow::setupPageWidget(CoreGraph *g)
 {
-    // Visual graph
-    graph_ = new CoreGraph();
-    scene_ = new GraphScene(this);
+    // Visual graph    
+    graph_ = g;
     scene_->setSceneRect(QRectF(0, 0, 5000, 5000));    
     view_ = new QGraphicsView(scene_);
-    scene_->setGraph(graph_);
+    scene_->setGraph(g);
     // Connect to delete action
     connect(delete_action_, SIGNAL(triggered()), scene_, SLOT(deleteItem()));
 
@@ -189,12 +190,12 @@ void MainWindow::visualGraphGroupClicked(int)
     scene_->setMode(GraphScene::Mode(visual_graph_group_->checkedId()));
 }
 
-void MainWindow::start()
+void MainWindow::start(CoreGraph *newGraph)
 {
     // get up page widget
-    setupPageWidget();    
+    setupPageWidget(newGraph);
     // set up search tool box
-    search_widget_ = new SearchToolWidget(graph_);    
+    search_widget_ = new SearchToolWidget(graph_);
     connect(search_widget_, SIGNAL(graphChanged()), view_->viewport(), SLOT(update()));
 
     QGridLayout *layout = new QGridLayout;
@@ -206,6 +207,12 @@ void MainWindow::start()
     setCentralWidget(widget);
     graph_toolbar_->setEnabled(true);
     view_toolbar_->setEnabled(true);
+}
+
+void MainWindow::startNewVisual()
+{
+    CoreGraph *g = new CoreGraph();
+    start(g);
 }
 
 void MainWindow::startNewAdjMat()
@@ -244,12 +251,16 @@ void MainWindow::startNewStructAdj()
 }
 
 void MainWindow::openGraph()
-{
-    start();
+{    
     QString file;
-    file = QFileDialog::getOpenFileName(this, tr("Open file"), tr("/Users/anhcx/8/IO/file"), tr("Graph data file (*.graph)"));
-    scene_->readFrom(file);
-    graph_ = scene_->graph();
+    file = QFileDialog::getOpenFileName(this,
+                                        tr("Open file"),
+                                        tr("/Users/anhcx/8/IO/file"),
+                                        tr("Graph data file (*.graph)"));
+    if (scene_->readFrom(file)) {
+        graph_ = scene_->graph();
+        start(graph_);
+    }
 }
 
 void MainWindow::saveGraph()
@@ -273,7 +284,7 @@ void MainWindow::about()
 
 void MainWindow::gotGraphFromDialog(CoreGraph *g)
 {    
-    start();
+    startNewVisual();
     graph_ = g;
     scene_->drawGraph(g);
 }

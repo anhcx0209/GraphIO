@@ -16,11 +16,11 @@ void GraphScene::setMode(Mode mode)
     mode_ = mode;
 }
 
-void GraphScene::readFrom(QString filename)
+bool GraphScene::readFrom(QString filename)
 {        
     QFile fi(filename);
     if (!fi.open(QFile::ReadOnly | QIODevice::Text))
-        return ;
+        return false;
 
     int n, m, pid;
     int b, e;
@@ -74,6 +74,7 @@ void GraphScene::readFrom(QString filename)
         addItem(arrow);
         arrow->updatePosition();
     }
+    return true;
 }
 
 void GraphScene::drawGraph(CoreGraph *g)
