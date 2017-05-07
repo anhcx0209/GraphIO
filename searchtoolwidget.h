@@ -5,6 +5,7 @@
 #include "coregraph.h"
 #include <QDebug>
 #include <QList>
+#include <QStringList>
 
 class SearchToolWidget : public QGroupBox
 {
@@ -24,6 +25,7 @@ private:
 
     QLabel *max_step_label_;
     QSpinBox *cur_step_spin_;
+    QLabel *message_log_;
 
     CoreGraph *graph_;
 
@@ -37,6 +39,7 @@ private:
     int cur_step_;
     ALGORITHM mode_;
     CoreVertex *start_vertex_;
+    QStringList result_;
 signals:
     void graphChanged();
 

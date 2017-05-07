@@ -32,11 +32,13 @@ SearchToolWidget::SearchToolWidget(CoreGraph *graph, QWidget *parent) : QGroupBo
 
     // Start selector
     start_input_ = new QLineEdit();
-
+    // Step label
     max_step_label_ = new QLabel("");
-
+    // Step selector
     cur_step_spin_ = new QSpinBox();
     connect(cur_step_spin_, SIGNAL(valueChanged(int)), this, SLOT(goToStep(int)));
+
+    message_log_ = new QLabel("");
 
     QLabel *selectLabel = new QLabel("Выбрать алгоритм: ");
     QLabel *startLabel = new QLabel("Начальная вершина: ");
@@ -51,20 +53,23 @@ SearchToolWidget::SearchToolWidget(CoreGraph *graph, QWidget *parent) : QGroupBo
     layout->addWidget(cur_step_spin_, 3, 1);
     layout->addWidget(max_step_label_, 3, 2);
     layout->addWidget(next_button_, 3, 3);
+    layout->addWidget(message_log_, 4, 0, 1, 4);
 
     setLayout(layout);
     setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Ignored));
 }
 
-int SearchToolWidget::bfs(int i, CoreVertex *start)
+int SearchToolWidget::bfs(int i, CoreVertex *s)
 {
+    result_.clear();
     list_steps_.clear();
     graph_->resetFlag();    
     int step = 0;
 
     QQueue<CoreVertex *> queue;
-    queue.enqueue(start);   
-    start->setFlag(true);
+    queue.enqueue(s);
+    s->setFlag(true);
+    result_.append(s->id());
     step++;
 
     CoreVertex *u = 0;
@@ -75,6 +80,7 @@ int SearchToolWidget::bfs(int i, CoreVertex *start)
             CoreEdge *e = graph_->edgeBetween(u, v);
             if (e != 0 && v->flag() == false) {
                 v->setFlag(true);
+                result_.append(v->id());
                 e->setFlag(true);
                 queue.enqueue(v);
                 step++;
@@ -87,6 +93,7 @@ int SearchToolWidget::bfs(int i, CoreVertex *start)
 
 int SearchToolWidget::dfs(int i, CoreVertex *s)
 {
+    result_.clear();
     list_steps_.clear();
     graph_->resetFlag();
     int step = 0;
@@ -101,6 +108,7 @@ int SearchToolWidget::dfs(int i, CoreVertex *s)
 
         if (!u->flag()) {
             u->setFlag(true); // Mark u visited
+            result_.append(u->id());
             step++;           // Increase step
             CoreVertex *t = u->visit();
             if (t) {
@@ -124,17 +132,18 @@ int SearchToolWidget::dfs(int i, CoreVertex *s)
 
 void SearchToolWidget::changeMode(int i)
 {
-    mode_ = (ALGORITHM)i;
+    mode_ = (ALGORITHM)i;    
 }
 
 void SearchToolWidget::search()
-{
+{    
     QString id = start_input_->text();
     start_vertex_ = graph_->findVertex(id);
 
     if (mode_ == BFS && start_vertex_) {
         max_step_ = bfs(9000, start_vertex_);
         max_step_label_->setText(QString::number(max_step_));
+        message_log_->setText("Порядок обхода BFS: " + result_.join(", "));
 
         cur_step_ = 1;
         bfs(cur_step_, start_vertex_);
@@ -147,6 +156,7 @@ void SearchToolWidget::search()
     if (mode_ == DFS && start_vertex_) {
         max_step_ = dfs(1000, start_vertex_);
         max_step_label_->setText(QString::number(max_step_));
+        message_log_->setText("Порядок обхода DFS: " + result_.join(", "));
 
         cur_step_ = 1;
         bfs(cur_step_, start_vertex_);
