@@ -288,4 +288,5 @@ void MainWindow::gotGraphFromDialog(CoreGraph *g)
     startNewVisual();
     graph_ = g;
     scene_->drawGraph(g);
+    search_widget_->setGraph(g);
 }
