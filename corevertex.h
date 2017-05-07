@@ -8,6 +8,7 @@ class CoreVertex
 private:
     QString id_;
     bool flag_;
+    CoreVertex *visit_;
 
 public:
     CoreVertex(QString i);                  // default constructor
@@ -18,6 +19,9 @@ public:
 
     bool flag() const { return flag_; }
     void setFlag(bool value) { flag_ = value; }
+
+    void setVisit(CoreVertex *v) { visit_ = v; }
+    CoreVertex *visit() const { return visit_; }
 };
 
 #endif // COREVERTEX_H

@@ -85,30 +85,36 @@ int SearchToolWidget::bfs(int i, CoreVertex *start)
     return step;
 }
 
-int SearchToolWidget::dfs(int i, CoreVertex *start)
+int SearchToolWidget::dfs(int i, CoreVertex *s)
 {
     list_steps_.clear();
     graph_->resetFlag();
     int step = 0;
 
     QStack<CoreVertex *> stack;
-    stack.push(start);
-    start->setFlag(true);
-    step++;
+    stack.push(s);
+
 
     CoreVertex *u = 0;
     while (!stack.isEmpty() && step < i) {
         u = stack.pop();
 
-        foreach (CoreVertex *v, graph_->vertexs()) {
-            CoreEdge *e = graph_->edgeBetween(u, v);
-            if (e != 0 && v->flag() == false) {
-                stack.push(u);
-                e->setFlag(true);
-                v->setFlag(true);
-                stack.push(v);
-                step++;
-                if (step == i) return step;
+        if (!u->flag()) {
+            u->setFlag(true); // Mark u visited
+            step++;           // Increase step
+            CoreVertex *t = u->visit();
+            if (t) {
+                CoreEdge *q = graph_->edgeBetween(t, u);
+                q->setFlag(true);
+            }
+            if (step == i) return step;
+
+            foreach (CoreVertex *v, graph_->vertexs()) {
+                CoreEdge *e = graph_->edgeBetween(u, v);
+                if (e != 0 && !v->flag()) {
+                    stack.push(v);
+                    v->setVisit(u); // v can visit from u
+                }
             }
         }
 

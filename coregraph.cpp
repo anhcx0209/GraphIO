@@ -110,6 +110,7 @@ void CoreGraph::resetFlag()
 {
     foreach (CoreVertex *v, list_vertexs_) {
         v->setFlag(false);
+        v->setVisit(0);
     }
 
     foreach (CoreEdge *e, list_edges_) {
