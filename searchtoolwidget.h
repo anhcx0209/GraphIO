@@ -11,6 +11,7 @@ class SearchToolWidget : public QGroupBox
     Q_OBJECT
 public:
     SearchToolWidget(CoreGraph *, QWidget *parent = 0);
+    void setGraph(CoreGraph *g) { graph_ = g; }
 
 private:
     enum ALGORITHM { BFS = 0, DFS = 1};
