@@ -19,7 +19,7 @@ public:
     CoreGraph *graph() {return graph_;}
     void setGraph(CoreGraph * g) {graph_ = g;}
     void saveTo(QString filename);
-    void readFrom(QString filename);
+    bool readFrom(QString filename);
     void drawGraph(CoreGraph *g);
 public slots:
     void deleteItem();
