@@ -212,6 +212,7 @@ void MainWindow::start(CoreGraph *newGraph)
 void MainWindow::startNewVisual()
 {
     CoreGraph *g = new CoreGraph();
+    scene_->clear();
     start(g);
 }
 
