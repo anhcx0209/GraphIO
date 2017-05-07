@@ -245,6 +245,7 @@ void MainWindow::startNewStructAdj()
 
 void MainWindow::openGraph()
 {
+    start();
     QString file;
     file = QFileDialog::getOpenFileName(this, tr("Open file"), tr("/Users/anhcx/8/IO/file"), tr("Graph data file (*.graph)"));
     scene_->readFrom(file);

@@ -17,8 +17,11 @@ void GraphScene::setMode(Mode mode)
 }
 
 void GraphScene::readFrom(QString filename)
-{
+{        
     QFile fi(filename);
+    if (!fi.open(QFile::ReadOnly | QIODevice::Text))
+        return ;
+
     int n, m, pid;
     int b, e;
     double w;
@@ -32,46 +35,45 @@ void GraphScene::readFrom(QString filename)
     GraphPoint *begin, *end;
     GraphArrowExtend *arrow;
 
-    if (fi.open(QFile::ReadOnly)) {
-        QTextStream in(&fi);
-        in >> n;        
-        for (int i = 0; i < n; i++) {
-            in >> pid >> px >> py;
-            point = new GraphPoint();
-            point->setPos(QPointF(px, py));
-
-            v = new CoreVertex(QString::number(pid));
-            graph_->addVertex(v);
-            point->setVertex(v);
-            addItem(point);
-            points.append(point);
-        }
-
-        in >> m;
-        for (int i = 0; i < m; i++) {
-            in >> b >> e >> w;
-            // find vertex to add arrow
-            for (int j = 0; j < points.size(); j++) {
-                if (points.at(j)->vertex()->id().toInt() == b)
-                    begin = points.at(j);
-                if (points.at(j)->vertex()->id().toInt() == e)
-                    end = points.at(j);
-            }
-            // add arrow
-            arrow = new GraphArrowExtend(begin, end);
-            begin->addArrowExtend(arrow);
-            end->addArrowExtend(arrow);
-            arrow->setZValue(-1000.0);
-
-            CoreEdge *e = graph_->createEdge(begin->vertex(), end->vertex());
-            e->setWeight(w);
-            arrow->setEdge(e);
-
-            addItem(arrow);
-            arrow->updatePosition();
-        }
+    QTextStream in(&fi);
+    // Read number of vertexs
+    in >> n;
+    // Read and create all vertexs
+    for (int i = 0; i < n; i++) {
+        in >> pid >> px >> py;
+        point = new GraphPoint();
+        point->setPos(QPointF(px, py));
+        v = new CoreVertex(QString::number(pid));
+        graph_->addVertex(v);
+        point->setVertex(v);
+        addItem(point);
+        points.append(point);
     }
-    fi.close();
+    // Read number of edges
+    in >> m;
+    // Read and create all edges
+    for (int i = 0; i < m; i++) {
+        in >> b >> e >> w;
+        // find vertex to add arrow
+        for (int j = 0; j < points.size(); j++) {
+            if (points.at(j)->vertex()->id().toInt() == b)
+                begin = points.at(j);
+            if (points.at(j)->vertex()->id().toInt() == e)
+                end = points.at(j);
+        }
+        // add arrow
+        arrow = new GraphArrowExtend(begin, end);
+        begin->addArrowExtend(arrow);
+        end->addArrowExtend(arrow);
+        arrow->setZValue(-1000.0);
+
+        CoreEdge *e = graph_->createEdge(begin->vertex(), end->vertex());
+        e->setWeight(w);
+        arrow->setEdge(e);
+
+        addItem(arrow);
+        arrow->updatePosition();
+    }
 }
 
 void GraphScene::drawGraph(CoreGraph *g)
