@@ -205,6 +205,7 @@ void MainWindow::startNewVisual()
 {
     CoreGraph *g = new CoreGraph();
     scene_->clear();
+    scene_->reset();
     start(g);
 }
 
