@@ -37,12 +37,13 @@ private slots:
     void saveGraph();
     void openHelp();
     void about();
+    void openDemo1();
+    void openDemo2();
 
     void gotGraphFromDialog(CoreGraph *);    
     void changePage(int);
     void visualGraphGroupClicked(int);
 private:
-
     void createActions();
     void createMenu();
     void createToolbars();
@@ -63,9 +64,13 @@ private:
     SearchToolWidget *search_widget_;
 
     QMenu *file_menu_;
-    QMenu *view_menu_;
+    QMenu *demo_menu_;
     QMenu *help_menu_;
     QMenu *new_menu_;
+
+    QAction *demo_action_1_;
+    QAction *demo_action_2_;
+    QAction *demo_action_3_;
 
     QAction *new_action_;
     QAction *new_visual_action_;

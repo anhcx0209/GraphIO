@@ -22,5 +22,7 @@
         <file>doc/images/graph5_1.png</file>
         <file>doc/images/move.png</file>
         <file>doc/images/point.png</file>
+        <file>demo/demo1.graph</file>
+        <file>demo/demo2.graph</file>
     </qresource>
 </RCC>
