@@ -63,6 +63,13 @@ void MainWindow::createActions()
 
     delete_action_ = new QAction(QIcon(":/icons/delete.png"), tr("Delete"), this);
     delete_action_->setShortcut(tr("Delete"));
+
+    // #demo action
+    demo_action_1_ = new QAction(tr("Пример 1"), this);
+    connect(demo_action_1_, SIGNAL(triggered()), this, SLOT(openDemo1()));
+
+    demo_action_2_ = new QAction(tr("Пример 2"), this);
+    connect(demo_action_2_, SIGNAL(triggered()), this, SLOT(openDemo2()));
 }
 
 void MainWindow::createMenu()
@@ -79,6 +86,10 @@ void MainWindow::createMenu()
     file_menu_->addAction(open_action_);
     file_menu_->addAction(save_action_);
     file_menu_->addAction(exit_action_);
+
+    demo_menu_ = menuBar()->addMenu(tr("Примеры"));
+    demo_menu_->addAction(demo_action_1_);
+    demo_menu_->addAction(demo_action_2_);
 
     help_menu_ = menuBar()->addMenu(tr("Помощь"));
     help_menu_->addAction(about_action_);
@@ -274,6 +285,22 @@ void MainWindow::about()
     QMessageBox::about(this, tr("GraphIO 3.0"),
                        tr("Предложение <b>Graph IO</b> версия "
                           "3.0 для отображения граф. Автор: AnhCx"));
+}
+
+void MainWindow::openDemo1()
+{
+    if (scene_->readFrom(":/demo/demo1.graph")) {
+        graph_ = scene_->graph();
+        start(graph_);
+    }
+}
+
+void MainWindow::openDemo2()
+{
+    if (scene_->readFrom(":/demo/demo2.graph")) {
+        graph_ = scene_->graph();
+        start(graph_);
+    }
 }
 
 void MainWindow::gotGraphFromDialog(CoreGraph *g)
