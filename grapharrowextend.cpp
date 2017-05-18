@@ -52,7 +52,7 @@ void GraphArrowExtend::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void GraphArrowExtend::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
 
-    if (line1 != 0 & line2 != 0) {
+    if (line1 != 0 && line2 != 0) {
         if (line1->line().angleTo(line2->line()) > 20 && line1->line().angleTo(line2->line()) < 340) {
             if (line1 != 0 && line2 != 0) {
                 list_point_.insert(pos_to_insert_+1, line1->line().p2());
