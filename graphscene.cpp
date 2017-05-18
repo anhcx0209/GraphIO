@@ -17,7 +17,9 @@ void GraphScene::setMode(Mode mode)
 }
 
 bool GraphScene::readFrom(QString filename)
-{        
+{
+    reset();
+
     QFile fi(filename);
     if (!fi.open(QFile::ReadOnly | QIODevice::Text))
         return false;
@@ -38,6 +40,7 @@ bool GraphScene::readFrom(QString filename)
     QTextStream in(&fi);
     // Read number of vertexs
     in >> n;
+    def_name_ = n+1;
     // Read and create all vertexs
     for (int i = 0; i < n; i++) {
         in >> pid >> px >> py;
@@ -116,6 +119,12 @@ void GraphScene::drawGraph(CoreGraph *g)
         arrow->setEdge(e);
         addItem(arrow);
     }
+}
+
+void GraphScene::reset()
+{
+    def_name_ = 1;
+    line_ = 0;
 }
 
 void GraphScene::deleteItem()
